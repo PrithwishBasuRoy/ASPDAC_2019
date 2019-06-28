@@ -1,0 +1,14 @@
+*~
+
+
+.*~
+
+
+#Ignore dumps
+.dump
+
+#ignore lib files
+.lib
+
+#ignore vcds
+.vcd
