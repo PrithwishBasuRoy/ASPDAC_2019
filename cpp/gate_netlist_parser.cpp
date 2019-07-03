@@ -59,7 +59,6 @@ bool is_special_char (char c) {
 bool read_line_as_tokens (istream& is, vector<string>& tokens,
 			  bool includeSpecialChars = false) {
 
-  //includeSpecialChars=true;	
   tokens.clear() ;
   
   string line ;
@@ -71,7 +70,6 @@ bool read_line_as_tokens (istream& is, vector<string>& tokens,
 
     for (int i=0; i < line.size(); ++i) {
       char currChar = line[i] ;
-      //cout<< currChar << endl;
       bool isSpecialChar = is_special_char(currChar) ;
 
       if (std::isspace (currChar) || isSpecialChar) {
@@ -102,9 +100,9 @@ bool read_line_as_tokens (istream& is, vector<string>& tokens,
       std::getline (is, line) ;    
   }
 
-  for (int i=0; i < tokens.size(); ++i)
-    cout << tokens[i] << " " ;
-  cout << endl ;
+  //for (int i=0; i < tokens.size(); ++i)
+  //  cout << tokens[i] << " " ;
+  //cout << endl ;
   
   return !tokens.empty() ;
 }
@@ -190,7 +188,6 @@ bool VerilogParser::read_wire (string& wire) {
   vector<string> tokens ;
   bool valid = read_line_as_tokens (is, tokens) ;
 
-  //cout<<is<<endl;
   assert (valid) ;
   assert (tokens.size() == 2) ;
 
@@ -219,10 +216,8 @@ bool VerilogParser::read_cell_inst (string& cellType, string& cellInstName,
   assert (valid) ;
 
   if (tokens.size() == 1) {
-    cout<<tokens[0]<<endl;
     assert (tokens[0] == "endmodule") ;
     return false ;
- 	//return true ;
   }
 
   assert (tokens.size() >= 4) ; // We should have cellType, instName, and at least one pin-net pair
@@ -428,7 +423,6 @@ bool SdcParser::read_output_load (string& outPortName, double& load) {
 
   return valid ;
 }
-
 
 // The return value indicates whether the *CONN section has been read or not
 bool SpefParser::read_connections (vector<SpefConnection>& connections) {
@@ -1145,8 +1139,7 @@ void test_verilog_parser (string filename,string format) {
     if (valid)
     {
 //      cout << "Primary input: " << primaryInput << endl ;
-      //if(primaryInput !="ispd_clk")
-      if(primaryInput !="clk")	
+      if(primaryInput !="ispd_clk")
       {
           piset.insert(primaryInput); // we add primary input to the set of PIS
     cout << "Primary input: " << primaryInput << endl ;
@@ -1176,8 +1169,8 @@ void test_verilog_parser (string filename,string format) {
     }
 
   } while (valid) ;
-  pi_po_count--;
-  cout <<pi_po_count<< endl ;
+//  pi_po_count--;
+  cout << endl ;
 
   do {
     string net ;
