@@ -41,10 +41,10 @@ while count != size_f0:
 					# 	count_z=count_z+1	
 				if sum > 0 :
 					# f1.write(name_of_current_cell+"\n")
-					f1.write(str(1)+"\n")
+					f1.write(str(0)+"\n")
 				elif sum < 0 :	
 					# f1.write(name_of_current_cell+"\n")
-					f1.write(str(-1)+"\n")
+					f1.write(str(1)+"\n")
 				else :
 					# f1.write(name_of_current_cell+"\n")
 					f1.write(str(0)+"\n")
