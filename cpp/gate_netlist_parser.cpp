@@ -205,7 +205,7 @@ bool VerilogParser::read_wire (string& wire) {
   return valid ; 
 }
 
-
+//comment
 bool VerilogParser::read_cell_inst (string& cellType, string& cellInstName,
                                     vector<std::pair<string, string> >& pinNetPairs) {
 
