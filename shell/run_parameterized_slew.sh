@@ -1,0 +1,2 @@
+g++ -g -std=c++0x parameterized_input_slew.cpp  -o delay.out
+./delay.out aes_128.hgr aes_128.type lvt_gate_lookup hvt_gate_lookup  lvt_cell_rise lvt_cell_fall lvt_rise_transition lvt_fall_transition hvt_cell_rise hvt_cell_fall  hvt_rise_transition hvt_fall_transition load_capacitance_max_combined_2 parity_combined lvt_index_cell_rise_rec lvt_index_cell_fall_rec lvt_index_rise_transition_rec lvt_index_fall_transition_rec hvt_index_cell_rise_rec hvt_index_cell_fall_rec hvt_index_rise_transition_rec hvt_index_fall_transition_rec > dump_delay 5 5
