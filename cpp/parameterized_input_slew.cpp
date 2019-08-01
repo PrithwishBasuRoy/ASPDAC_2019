@@ -2261,26 +2261,43 @@ vector<float> index_1;
             }
 
             int number_of_fanouts=successor_map.size();
-            double initial_net_capacitance= 0.02;
+            double initial_net_capacitance= 0.028;
             double decline_rate=0.000435;
-            if(loadCapacitance == 0)
+            int rf=  number_of_fanouts - 10;
+            if(loadCapacitance == 0){
                  //g[i].capacitance=NET_DELAY_LVT;
                // g[i].capacitance=(initial_net_capacitance-(number_of_fanouts)*decline_rate);
-                 g[i].capacitance=number_of_fanouts*initial_net_capacitance/(((int) number_of_fanouts/10)+1);
-            else{ 
+                 // g[i].capacitance=number_of_fanouts*initial_net_capacitance/(((int) number_of_fanouts/10)+1);
+                //g[i].capacitance=initial_net_capacitance+(number_of_fanouts - 1)*0.01;
+                if(number_of_fanouts <=10)
+                    g[i].capacitance= initial_net_capacitance+(number_of_fanouts - 1)*0.001;
+                    // g[i].capacitance=initial_net_capacitance;
+
+                else        
+                    g[i].capacitance=initial_net_capacitance+(rf-1)*0.001+9*0.01;
+
+            }else{ 
                 // if(g[i].level== 1)
                 //     g[i].capacitance=loadCapacitance;
                 // else                        
                    // g[i].capacitance=loadCapacitance+(initial_net_capacitance-(number_of_fanouts)*decline_rate);
-                g[i].capacitance=loadCapacitance+number_of_fanouts*initial_net_capacitance/(((int) number_of_fanouts/10)+1);
+                //g[i].capacitance=loadCapacitance+number_of_fanouts*initial_net_capacitance/(((int) number_of_fanouts/10)+1);
+                // g[i].capacitance=loadCapacitance+initial_net_capacitance+(number_of_fanouts - 1)*0.01;
+                if(number_of_fanouts <=10)
+                    // g[i].capacitance=loadCapacitance+initial_net_capacitance;
+                    g[i].capacitance=loadCapacitance+initial_net_capacitance+(number_of_fanouts - 1)*0.001;
+                else   
+                    g[i].capacitance=loadCapacitance+initial_net_capacitance+(rf-1)*0.001+9*0.01;
+                    // g[i].capacitance=loadCapacitance+initial_net_capacitance+(number_of_fanouts - 10)*0.001;
                 //g[i].capacitance=loadCapacitance+NET_DELAY_LVT;
             }
 
-            cout<<"XXOO : HVT "<<endl;
-             {
+            cout<<"XXOO : LVT "<<endl;
+            // if(i==26149 || i==2789|| i==8616|| i==8602|| i==132791|| i==97948|| i==97947|| i==97945|| i==97944|| i==9663 || i==9662 || i==163436 ){
+            //if(i==1222 || i==8470|| i==34941|| i==90979|| i==114959|| i==97723|| i==28195|| i==89227|| i==12963|| i==12964 || i==97720 || i==163311 ){
                cout<<"XXOO : For i = "<<i<<" Capacitance :"<<g[i].capacitance<<" Initial Net Capacitance : "<<initial_net_capacitance<<" (number_of_fanouts)*decline_rate) :"<< (number_of_fanouts)*decline_rate<<endl;
                cout<<"number_of_fanouts :"<<number_of_fanouts<<"Decline rate :"<<decline_rate; 
-            }
+            //}
 
             // else 
                 // g[i].capacitance=loadCapacitance+NET_DELAY_LVT;
@@ -2371,30 +2388,42 @@ vector<float> index_1;
             }
 
             int number_of_fanouts=successor_map.size();
-            double initial_net_capacitance= 0.02;
+            double initial_net_capacitance= 0.028;
             double decline_rate=0.000435;
+            int rf=  number_of_fanouts - 10;
+            if(loadCapacitance == 0){
+                 //g[i].capacitance=NET_DELAY_LVT;
+               // g[i].capacitance=(initial_net_capacitance-(number_of_fanouts)*decline_rate);
+                 // g[i].capacitance=number_of_fanouts*initial_net_capacitance/(((int) number_of_fanouts/10)+1);
+                //g[i].capacitance=initial_net_capacitance+(number_of_fanouts - 1)*0.01;
+                if(number_of_fanouts <=10)
+                    g[i].capacitance= initial_net_capacitance+(number_of_fanouts - 1)*0.001;
+                    // g[i].capacitance=initial_net_capacitance;
 
-            if(loadCapacitance == 0)
-                // g[i].capacitance=NET_DELAY_HVT;
-                // g[i].capacitance=(initial_net_capacitance-(number_of_fanouts)*decline_rate);
-                
-                g[i].capacitance=number_of_fanouts*initial_net_capacitance/(((int) number_of_fanouts/5)+1);
+                else        
+                    g[i].capacitance=initial_net_capacitance+(rf-1)*0.001+9*0.01;
 
-            else{ 
+            }else{ 
                 // if(g[i].level== 1)
                 //     g[i].capacitance=loadCapacitance;
-                // else                       
-
-                    //g[i].capacitance=loadCapacitance+count*NET_DELAY_HVT;
+                // else                        
                    // g[i].capacitance=loadCapacitance+(initial_net_capacitance-(number_of_fanouts)*decline_rate);
-                g[i].capacitance=loadCapacitance+number_of_fanouts*initial_net_capacitance/(((int) number_of_fanouts/5)+1);;
-                //g[i].capacitance=loadCapacitance+NET_DELAY_HVT;
+                //g[i].capacitance=loadCapacitance+number_of_fanouts*initial_net_capacitance/(((int) number_of_fanouts/10)+1);
+                // g[i].capacitance=loadCapacitance+initial_net_capacitance+(number_of_fanouts - 1)*0.01;
+                if(number_of_fanouts <=10)
+                    // g[i].capacitance=loadCapacitance+initial_net_capacitance;
+                    g[i].capacitance=loadCapacitance+initial_net_capacitance+(number_of_fanouts - 1)*0.001;
+                else   
+                    g[i].capacitance=loadCapacitance+initial_net_capacitance+(rf-1)*0.001+9*0.01;
+                    // g[i].capacitance=loadCapacitance+initial_net_capacitance+(number_of_fanouts - 10)*0.001;
+                //g[i].capacitance=loadCapacitance+NET_DELAY_LVT;
             }
-
             cout<<"XXOO : HVT "<<endl;
-            
+            //if(i==26149 || i==2789|| i==8616|| i==8602|| i==132791|| i==97948|| i==97947|| i==97945|| i==97944|| i==9663 || i==9662 || i==163436 ){
+            //if(i==1222 || i==8470|| i==34941|| i==90979|| i==114959|| i==97723|| i==28195|| i==89227|| i==12963|| i==12964 || i==97720 || i==163311 ){
                cout<<"XXOO : For i = "<<i<<" Capacitance :"<<g[i].capacitance<<" Initial Net Capacitance : "<<initial_net_capacitance<<" (number_of_fanouts)*decline_rate) :"<< (number_of_fanouts)*decline_rate<<endl;
                cout<<"number_of_fanouts :"<<number_of_fanouts<<"Decline rate :"<<decline_rate; 
+            //} 
         
 
         }
