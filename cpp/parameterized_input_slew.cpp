@@ -2262,6 +2262,7 @@ vector<float> index_1;
 
             int number_of_fanouts=successor_map.size();
             double initial_net_capacitance= 0.028;
+            double initial_net_capacitance_less_fanout= 0.02;
             double decline_rate=0.000435;
             int rf=  number_of_fanouts - 10;
             if(loadCapacitance == 0){
@@ -2270,7 +2271,7 @@ vector<float> index_1;
                  // g[i].capacitance=number_of_fanouts*initial_net_capacitance/(((int) number_of_fanouts/10)+1);
                 //g[i].capacitance=initial_net_capacitance+(number_of_fanouts - 1)*0.01;
                 if(number_of_fanouts <=10)
-                    g[i].capacitance= initial_net_capacitance+(number_of_fanouts - 1)*0.001;
+                    g[i].capacitance= initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.01;
                     // g[i].capacitance=initial_net_capacitance;
 
                 else        
@@ -2285,7 +2286,7 @@ vector<float> index_1;
                 // g[i].capacitance=loadCapacitance+initial_net_capacitance+(number_of_fanouts - 1)*0.01;
                 if(number_of_fanouts <=10)
                     // g[i].capacitance=loadCapacitance+initial_net_capacitance;
-                    g[i].capacitance=loadCapacitance+initial_net_capacitance+(number_of_fanouts - 1)*0.001;
+                    g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.01;
                 else   
                     g[i].capacitance=loadCapacitance+initial_net_capacitance+(rf-1)*0.001+9*0.01;
                     // g[i].capacitance=loadCapacitance+initial_net_capacitance+(number_of_fanouts - 10)*0.001;
@@ -2390,6 +2391,7 @@ vector<float> index_1;
             int number_of_fanouts=successor_map.size();
             double initial_net_capacitance= 0.028;
             double decline_rate=0.000435;
+            double initial_net_capacitance_less_fanout= 0.02;
             int rf=  number_of_fanouts - 10;
             if(loadCapacitance == 0){
                  //g[i].capacitance=NET_DELAY_LVT;
@@ -2397,7 +2399,7 @@ vector<float> index_1;
                  // g[i].capacitance=number_of_fanouts*initial_net_capacitance/(((int) number_of_fanouts/10)+1);
                 //g[i].capacitance=initial_net_capacitance+(number_of_fanouts - 1)*0.01;
                 if(number_of_fanouts <=10)
-                    g[i].capacitance= initial_net_capacitance+(number_of_fanouts - 1)*0.001;
+                    g[i].capacitance= initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.01;
                     // g[i].capacitance=initial_net_capacitance;
 
                 else        
@@ -2412,7 +2414,7 @@ vector<float> index_1;
                 // g[i].capacitance=loadCapacitance+initial_net_capacitance+(number_of_fanouts - 1)*0.01;
                 if(number_of_fanouts <=10)
                     // g[i].capacitance=loadCapacitance+initial_net_capacitance;
-                    g[i].capacitance=loadCapacitance+initial_net_capacitance+(number_of_fanouts - 1)*0.001;
+                    g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.01;
                 else   
                     g[i].capacitance=loadCapacitance+initial_net_capacitance+(rf-1)*0.001+9*0.01;
                     // g[i].capacitance=loadCapacitance+initial_net_capacitance+(number_of_fanouts - 10)*0.001;
