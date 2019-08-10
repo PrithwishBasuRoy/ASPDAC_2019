@@ -60,6 +60,7 @@ vector<pair<int,double>> slackset;
     double cost[1];
     int lvt_hvt=1;
     double capacitance; 
+    double cellCapacitance;
 };
 bool mysortfunction(const pair<int,double> &i,const pair<int,double> &j)
 {
@@ -413,6 +414,7 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
                             //if(vt_type==1){
                                 searchby=gate_fp_map_lvt[g[f].type];
 
+                                //index one has to vary as per the type of gate
                                 vector<float> index_1=inputslew_r[searchby];
                                 for (int t=0;t<index_1.size();t++)
                                 {
@@ -454,6 +456,8 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
                             }
 
                            cout<<"X1:"<<x1<<"X2:"<<x2<<endl;
+
+                           //index two has to vary as per the type of gate
                            vector<float> index_2=loadCapacitance_r[searchby];
                            
                             for(int t=0;t<index_2.size();t++)
@@ -593,6 +597,7 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
                             //if(vt_type==1){
                                 searchby=gate_fp_map_lvt[g[f].type];
 
+                                //index_1 has to change here
                                 vector<float> index_1=inputslew_f[searchby];
                                 for (int t=0;t<index_1.size();t++)
                                 {
@@ -634,6 +639,7 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
                             }
 
                            cout<<"X1:"<<x1<<"X2:"<<x2<<endl;
+                           //index 2 has to change here
                            vector<float> index_2=loadCapacitance_f[searchby];
                            
                             for(int t=0;t<index_2.size();t++)
@@ -771,6 +777,7 @@ void delay_calculation(map<string,vector<float>> &inputslew_r,map<string,vector<
                             //if(vt_type==1){
                     searchby=gate_fp_map_lvt[g[f].type];
 
+                //index 1 has to change here    
                 vector<float> index_1=inputslew_r[searchby];    
                 cout<<"when g[f].type!=PI && g[f].type!=PO"<<endl;
                  for (int t=0;t<index_1.size();t++)
@@ -808,6 +815,7 @@ void delay_calculation(map<string,vector<float>> &inputslew_r,map<string,vector<
                 
                 cout<<"X1: "<<x1<<" X2: "<<x2<<endl;
 
+                //index 2 has to change here
                 vector<float> index_2=loadCapacitance_r[searchby];
                 for(int t=0;t<index_2.size();t++)
                 {
@@ -1653,6 +1661,49 @@ void leakage_assignment(map<string,double> leakagemap,int level,int size,Graph &
 
 
 
+}
+
+void updating_load_capacitance_for_a_particular_cell(Graph &g, int i){
+            vector<int> successor_map= g[i].fanouts;
+            std::vector<int>::iterator Vitr;
+            // float loadCapacitance=0.001594;
+            float loadCapacitance=0;
+            int count=0;
+            for(Vitr=successor_map.begin();Vitr!=successor_map.end();Vitr++){
+                int cell_no=*Vitr;
+                string searchby="";
+                searchby=lvt_gate_fp_map[g[cell_no].type];
+                //float current_cell_load = capacitancemap[searchby];
+                float current_cell_load = g[cell_no].cellCapacitance;
+                loadCapacitance= loadCapacitance+current_cell_load;
+                count=count+1;
+            }
+
+            int number_of_fanouts=successor_map.size();
+            double initial_net_capacitance= 0.028;
+            double initial_net_capacitance_less_fanout= 0.028;
+            double decline_rate=0.000435;
+            int rf=  number_of_fanouts - 10;
+            if(loadCapacitance == 0){
+                if(number_of_fanouts == 1)
+                    g[i].capacitance= 0.02;
+
+                else if(number_of_fanouts>1 && number_of_fanouts <=10)
+                    g[i].capacitance= initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.01;
+                
+                else        
+                    g[i].capacitance=initial_net_capacitance+(rf-1)*0.001+9*0.01;
+
+            }else{ 
+                
+                if(number_of_fanouts == 1)
+                    g[i].capacitance= 0.02+loadCapacitance;
+                else if(number_of_fanouts >1 && number_of_fanouts <=10)
+                     g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.01;
+                else   
+                    g[i].capacitance=loadCapacitance+initial_net_capacitance+(rf-1)*0.001+9*0.01;
+                
+            }
 }
 
 int main(int argc,char *argv[])
@@ -2925,8 +2976,8 @@ vector<float> index_1;
         // the present node
         //////////////////////////////////////////////////////////////////////////////////////////
          //vector<int> list_of_nodes_on_path{2073,22203,132952,75469,57714,14926,103161,121002,66894,66893,66892,163589};
-         vector<int> list_of_nodes_on_path{129188, 87016, 79105, 124092, 146547, 146895, 118008, 92196, 92195};
-
+         //vector<int> list_of_nodes_on_path{129188, 87016, 79105, 124092, 146547, 146895, 118008, 92196, 92195};
+        vector<int> list_of_nodes_on_path{111968,131550,131549,36040,50993,41372,12907,27155};
 
 
          //  vector<int>::iterator v_itr;
@@ -2985,6 +3036,18 @@ vector<float> index_1;
             g[i].numreplacements=0;
             g[i].critical=0;
         }
+
+        /////////////////////////////////Calculating just the present cells capacitance//////////////////////
+        for(int i=0;i<=num ; i++){
+                string searchby="";
+                searchby=lvt_gate_fp_map[g[cell_no].type];
+                g[i].cellCapacitance=capacitancemap[searchby];
+        }
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
         /************************************************************************/
 
         /////////////////////////////////////////////////////////////////////////////////////////////
@@ -2999,7 +3062,8 @@ vector<float> index_1;
                 int cell_no=*Vitr;
                 string searchby="";
                 searchby=lvt_gate_fp_map[g[cell_no].type];
-                float current_cell_load = capacitancemap[searchby];
+                //float current_cell_load = capacitancemap[searchby];
+                float current_cell_load = g[cell_no].cellCapacitance;
                 loadCapacitance= loadCapacitance+current_cell_load;
                 count=count+1;
             }
@@ -3032,7 +3096,8 @@ vector<float> index_1;
 
             cout<<"XXOO : LVT "<<endl;
             // if(i==26149 || i==2789|| i==8616|| i==8602|| i==132791|| i==97948|| i==97947|| i==97945|| i==97944|| i==9663 || i==9662 || i==163436 ){
-            if(i==1222 || i==8470|| i==34941|| i==90979|| i==114959|| i==97723|| i==28195|| i==89227|| i==12963|| i==12964 || i==97720 || i==163311 ){
+            //if(i==1222 || i==8470|| i==34941|| i==90979|| i==114959|| i==97723|| i==28195|| i==89227|| i==12963|| i==12964 || i==97720 || i==163311 ){
+            if(j==111968|| j==131550|| j==131549|| j==36040|| j==50993|| j==41372|| j==12907|| j==27155){
                cout<<"XXOO : For i = "<<i<<" Capacitance :"<<g[i].capacitance<<" Initial Net Capacitance : "<<initial_net_capacitance<<" (number_of_fanouts)*decline_rate) :"<< (number_of_fanouts)*decline_rate<<endl;
                cout<<"number_of_fanouts :"<<number_of_fanouts<<"Decline rate :"<<decline_rate; 
             }
@@ -3209,6 +3274,14 @@ vector<float> index_1;
                        cout<<"g[markednode].numreplacements :"<<g[markednode].numreplacements<<endl;
                        g[markednode].critical=1;
                        g[markednode].lvt_hvt=2;
+
+                       //changing the capacitance
+                       g[markednode].cellCapacitance= capacitancemap[searchby];
+                       cout<<"g[markednode].cellCapacitance :"<<g[markednode].cellCapacitance<<endl;
+                       updating_load_capacitance_for_a_particular_cell(markednode);
+                       slew_calculation(lvt_rise_transition_name_index_1,lvt_rise_transition_name_index_2,lvt_fall_transition_name_index_1,lvt_fall_transition_name_index_2,lvt_risetransitionmap,lvt_falltransitionmap,0, templevel,num1,g,1,lvt_gate_fp_map,hvt_gate_fp_map);
+                       delay_calculation(lvt_cell_rise_name_index_1,lvt_cell_rise_name_index_2,lvt_cell_fall_name_index_1,lvt_cell_fall_name_index_2,lvt_risemap,lvt_fallmap,0,templevel,num1,0,g,1,lvt_gate_fp_map,hvt_gate_fp_map);
+                       delay_calculation(lvt_cell_rise_name_index_1,lvt_cell_rise_name_index_2,lvt_cell_fall_name_index_1,lvt_cell_fall_name_index_2,lvt_risemap,lvt_fallmap,1,templevel,num1,1,g,1,lvt_gate_fp_map,hvt_gate_fp_map);
                        cout<<"g[markednode].critical :"<<g[markednode].critical<<endl;
                        tempdelay=arrival_time(maxlevel,vertex_count,g,2);
                        //tempdelay=arrival_time_for_selected_path(g,list_of_nodes_on_path);
@@ -3255,6 +3328,9 @@ vector<float> index_1;
                         cout<<" inside  if(g[markednode].numreplacements==1) "<<endl;
                         cout<<" g[markednode].leakage"<<g[markednode].leakage<<" g[markednode].delay :"<<g[markednode].delay<<" g[markednode].critical : "<<g[markednode].critical<<endl;
                         g[markednode].lvt_hvt=1;
+                        //putting the lvt cap value back
+                        g[markednode].cellCapacitance=capacitancemap[searchby];
+
                     }
 
                     cout<<" g[markednode].leakage"<<g[markednode].leakage<<" g[markednode].delay :"<<g[markednode].delay<<" g[markednode].critical : "<<g[markednode].critical<<endl;
@@ -3287,6 +3363,12 @@ vector<float> index_1;
                 // tempvect=required_time(delay,maxlevel,vertex_count,g);
                 cout<<"Changing the node "<<markednode<<" of type - "<<g[markednode].type<<endl;
                 //list_of_nodes_on_path.erase(list_of_nodes_on_path.begin());
+                if(g[markednode].critical==1 && g[markednode].numreplacements==1){
+                list_of_replaced_nodes.push_back(markednode);
+
+
+                }
+
                 tempvect = required_time_for_selected_path(delay,g,list_of_nodes_on_path);
                 vector<int>::iterator vintItr;
                 for(vintItr=tempvect.begin();vintItr!=tempvect.end();vintItr++)
