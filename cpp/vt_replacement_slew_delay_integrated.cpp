@@ -1152,7 +1152,7 @@ vector<int> sorting_by_cost_function(Graph &g,vector<int> list_of_nodes_on_path)
 
     sort(slackset.begin(),slackset.end(),mysortfunction);
     ofstream myfile;
-    myfile.open("slackfile_ista.txt",ios::out|ios::app);
+    myfile.open("slackfile_ista_slew.txt",ios::out|ios::app);
     myfile<<"calling from new sorting func\n";
     myfile<<"the nodes in the decreasing order of slack are\n";
     for(int i=0;i<slackset.size();i++)
@@ -2906,7 +2906,7 @@ vector<float> index_1;
 
            //double gate_parameter;
             ifstream slewfilelvt(argv[29]);
-            //int vertex_iterator=0;
+            vertex_iterator=0;
             while(slewfilelvt.good())
             {
                 getline(slewfilelvt,line);
@@ -3542,6 +3542,18 @@ vector<float> index_1;
             // cout<<"---------------------------------------------------------------------------"<<endl;
 
     }//closing braces for argument else
+
+    ofstream myfile;
+    myfile.open("replaced_gates_slew.txt",ios::out|ios::app);
+    myfile<<"the replaced nodes are are\n";
+    for(int i=0;i<list_of_replaced_nodes.size();i++)
+    {
+            //int temp=slackset[i].first;
+            //myfile<<temp<<" "<<g[temp].cost[0]<<" "<<g[temp].numreplacements<<" "<<g[temp].critical<<"\n";     
+            myfile<<i<<",";
+    } 
+    myfile<<"\n";
+    
 
     return 0;
 }//closing braces for int main()
