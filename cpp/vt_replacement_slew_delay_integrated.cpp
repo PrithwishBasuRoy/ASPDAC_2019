@@ -1152,7 +1152,7 @@ vector<int> sorting_by_cost_function(Graph &g,vector<int> list_of_nodes_on_path)
 
     sort(slackset.begin(),slackset.end(),mysortfunction);
     ofstream myfile;
-    myfile.open("slackfile_ista_slew.txt",ios::out|ios::app);
+    myfile.open("slackfile_ista_slew_1.txt",ios::out|ios::app);
     myfile<<"calling from new sorting func\n";
     myfile<<"the nodes in the decreasing order of slack are\n";
     for(int i=0;i<slackset.size();i++)
@@ -1712,28 +1712,28 @@ void updating_load_capacitance_for_a_particular_cell(Graph &g, int i){
             }
 
             int number_of_fanouts=successor_map.size();
-            double initial_net_capacitance= 0.05;
-            double initial_net_capacitance_less_fanout= 0.05;
+            double initial_net_capacitance= 0.035;
+            double initial_net_capacitance_less_fanout= 0.03;
             double decline_rate=0.000435;
             int rf=  number_of_fanouts - 10;
             if(loadCapacitance == 0){
                 if(number_of_fanouts == 1)
-                    g[i].capacitance= 0.028;
+                    g[i].capacitance= 0.035;//0.028;
 
                 else if(number_of_fanouts>1 && number_of_fanouts <=10)
-                    g[i].capacitance= initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.01;
+                    g[i].capacitance= initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.015;
                 
                 else        
-                    g[i].capacitance=initial_net_capacitance+(rf-1)*0.001+9*0.01;
+                    g[i].capacitance=initial_net_capacitance+(rf-1)*0.001+9*0.015;
 
             }else{ 
                 
                 if(number_of_fanouts == 1)
-                    g[i].capacitance= 0.028+loadCapacitance;
+                    g[i].capacitance= 0.035+loadCapacitance;
                 else if(number_of_fanouts >1 && number_of_fanouts <=10)
-                     g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.01;
+                     g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.015;
                 else   
-                    g[i].capacitance=loadCapacitance+initial_net_capacitance+(rf-1)*0.001+9*0.01;
+                    g[i].capacitance=loadCapacitance+initial_net_capacitance+(rf-1)*0.001+9*0.015;
                 
             }
 }
@@ -3207,7 +3207,16 @@ vector<float> index_1;
         
         //g[markednode].numreplacements==0 && (g[markednode].slack>average(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay)
 
-
+        // for(intit= list_of_nodes_on_path.begin();intit!=list_of_nodes_on_path.end();++intit){
+        // for(int i=0;i<vertex_count;i++){
+        // //int i=*intit;
+        // updating_load_capacitance_for_a_particular_cell(g,i);    
+        // slew_calculation(hvt_rise_transition_name_index_1,hvt_rise_transition_name_index_2,hvt_fall_transition_name_index_1,hvt_fall_transition_name_index_2,hvt_risetransitionmap,hvt_falltransitionmap,0, maxlevel,vertex_count,g,lvt_gate_fp_map,hvt_gate_fp_map,i);    
+        // delay_calculation(hvt_cell_rise_name_index_1,hvt_cell_rise_name_index_2,hvt_cell_fall_name_index_1,hvt_cell_fall_name_index_2,hvt_risemap,hvt_fallmap,0,maxlevel,vertex_count,0,g,lvt_gate_fp_map,hvt_gate_fp_map,i);
+        // delay_calculation(hvt_cell_rise_name_index_1,hvt_cell_rise_name_index_2,hvt_cell_fall_name_index_1,hvt_cell_fall_name_index_2,hvt_risemap,hvt_fallmap,1,maxlevel,vertex_count,1,g,lvt_gate_fp_map,hvt_gate_fp_map,i);
+        // //g[i].hvt_dela
+        
+        // }
 
         /////////////////////////////////////////////////////////////////////////////////////////////
         // maxlevel=14;
@@ -3331,6 +3340,7 @@ vector<float> index_1;
                 cout<<"average(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay) "<<average(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay<<endl;                
                 cout<<"Temp Arrival Time "<<arrival_time(maxlevel,vertex_count,g,2);
 
+                   //if(g[markednode].numreplacements==0 && (g[markednode].slack>average(g[markednode].delay_from_slew[0],g[markednode].delay_from_slew[1])-g[markednode].delay))
                    if(g[markednode].numreplacements==0 && (g[markednode].slack>average(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay))
                     {
 
@@ -3511,6 +3521,8 @@ vector<float> index_1;
         for(path_itr=list_of_nodes_on_path.begin();path_itr!=list_of_nodes_on_path.end();++path_itr){
             cout<<"---------------------------------------------------------------------------"<<endl;
             int current_node_on_path=*path_itr;
+            cout<<"Node :"<<current_node_on_path<<" size of fanins"<<g[current_node_on_path].fanins.size()<<endl;
+            cout<<"Node :"<<current_node_on_path<<" size of fanouts"<<g[current_node_on_path].fanouts.size()<<endl;
             cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].level :"<<g[current_node_on_path].level<<endl;
             cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].type :"<<g[current_node_on_path].type<<endl;
             cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].leakage :"<<g[current_node_on_path].leakage<<endl;
@@ -3544,13 +3556,14 @@ vector<float> index_1;
     }//closing braces for argument else
 
     ofstream myfile;
-    myfile.open("replaced_gates_slew.txt",ios::out|ios::app);
+    myfile.open("replaced_gates_slew_1.txt",ios::out|ios::app);
     myfile<<"the replaced nodes are are\n";
-    for(int i=0;i<list_of_replaced_nodes.size();i++)
+    vector<int>::iterator itr;
+    for(itr=list_of_replaced_nodes.begin();itr!=list_of_replaced_nodes.end();++itr)
     {
             //int temp=slackset[i].first;
             //myfile<<temp<<" "<<g[temp].cost[0]<<" "<<g[temp].numreplacements<<" "<<g[temp].critical<<"\n";     
-            myfile<<i<<",";
+            myfile<<*itr<<",";
     } 
     myfile<<"\n";
     
