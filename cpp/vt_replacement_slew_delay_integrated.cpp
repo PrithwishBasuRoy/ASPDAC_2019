@@ -332,13 +332,14 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
 
 
             if(g[f].level==i && i==0)//The code for nodes having level == 0 starts here
-            {
+            {   
+                            cout<<"Node with level 0"<<endl;
                             cout<<"when g[f].level==i && i==0"<<endl;    
                             //g[f].slew[0]=PI_SLEW_R;
                             g[f].slew[0]=pi_slew_r;
                             g[f].slew[1]=pi_slew_f;
                             //g[f].slew[1]=PI_SLEW_F;
-                            cout<<"<<g[f].slew[0] :"<<g[f].slew[0]<<"<<g[f].slew[1] :"<<g[f].slew[1]<<endl;
+                            cout<<"<<g[f].slew[0] x:"<<g[f].slew[0]<<"<<g[f].slew[1] x:"<<g[f].slew[1]<<endl;
                             
         
         
@@ -1696,6 +1697,8 @@ void leakage_assignment(map<string,double> leakagemap,int level,int size,Graph &
 }
 
 void updating_load_capacitance_for_a_particular_cell(Graph &g, int i){
+            cout<<"Hitting updating_load_capacitance_for_a_particular_cell"<<endl;
+            cout<<"g[i].capacitance X Before: "<<g[i].capacitance<<endl;
             vector<int> successor_map= g[i].fanouts;
             std::vector<int>::iterator Vitr;
             // float loadCapacitance=0.001594;
@@ -1712,30 +1715,49 @@ void updating_load_capacitance_for_a_particular_cell(Graph &g, int i){
             }
 
             int number_of_fanouts=successor_map.size();
-            double initial_net_capacitance= 0.035;
+            double initial_net_capacitance= 0.03;
             double initial_net_capacitance_less_fanout= 0.03;
             double decline_rate=0.000435;
             int rf=  number_of_fanouts - 10;
             if(loadCapacitance == 0){
                 if(number_of_fanouts == 1)
-                    g[i].capacitance= 0.035;//0.028;
-
+                    g[i].capacitance= 0.03;//0.028;
+                // else if(number_of_fanouts == 2)
+                //     g[i].capacitance=initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.013;
+                // else if(number_of_fanouts == 3)
+                //     g[i].capacitance=initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.016;
                 else if(number_of_fanouts>1 && number_of_fanouts <=10)
-                    g[i].capacitance= initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.015;
+                    g[i].capacitance= initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.01;
                 
                 else        
-                    g[i].capacitance=initial_net_capacitance+(rf-1)*0.001+9*0.015;
+                    g[i].capacitance=initial_net_capacitance+(rf-1)*0.001+9*0.01;
 
             }else{ 
                 
                 if(number_of_fanouts == 1)
-                    g[i].capacitance= 0.035+loadCapacitance;
+                    g[i].capacitance= 0.028+loadCapacitance;
+                // else if(number_of_fanouts == 2)
+                //     g[i].capacitance=initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.013;
+                // else if(number_of_fanouts == 3)
+                //     g[i].capacitance=initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.016;
                 else if(number_of_fanouts >1 && number_of_fanouts <=10)
-                     g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.015;
+                     //g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.014;
+                    g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.01;
                 else   
-                    g[i].capacitance=loadCapacitance+initial_net_capacitance+(rf-1)*0.001+9*0.015;
+                    g[i].capacitance=loadCapacitance+initial_net_capacitance+(rf-1)*0.001+9*0.01;
                 
             }
+
+            cout<<"g[i].capacitance X After: "<<g[i].capacitance<<endl;
+}
+
+void print_nodes(vector<int> node_list,Graph &g){
+    vector<int>::iterator itr;
+    for(itr=node_list.begin();itr!=node_list.end();++itr){
+
+        cout<<" Node : "<<*itr<<" - g[i].type :"<<g[*itr].type<<" -g[i].cellCapacitance :"<<g[*itr].cellCapacitance<<endl;
+
+    }
 }
 
 int main(int argc,char *argv[])
@@ -3051,7 +3073,7 @@ vector<float> index_1;
         //////////////////////////////////////////////////////////////////////////////////////////
          //vector<int> list_of_nodes_on_path{2073,22203,132952,75469,57714,14926,103161,121002,66894,66893,66892,163589};
          //vector<int> list_of_nodes_on_path{129188, 87016, 79105, 124092, 146547, 146895, 118008, 92196, 92195};
-        vector<int> list_of_nodes_on_path{111968,131550,131549,36040,50993,41372,12907,27155};
+        vector<int> list_of_nodes_on_path{2466,111968,131550,131549,36040,50993,41372,12907,27155,164658};
 
 
          //  vector<int>::iterator v_itr;
@@ -3272,6 +3294,12 @@ vector<float> index_1;
         for(path_itr=list_of_nodes_on_path.begin();path_itr!=list_of_nodes_on_path.end();++path_itr){
             cout<<"---------------------------------------------------------------------------"<<endl;
             int current_node_on_path=*path_itr;
+            cout<<"Node :"<<current_node_on_path<<" size of fanins"<<g[current_node_on_path].fanins.size()<<endl;
+            cout<<"predecessors :"<<endl;
+            print_nodes(g[current_node_on_path].fanins,g);
+            cout<<"Node :"<<current_node_on_path<<" size of fanouts"<<g[current_node_on_path].fanouts.size()<<endl;
+            cout<<"successors :"<<endl;
+            print_nodes(g[current_node_on_path].fanouts,g);
             cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].capacitance :"<<g[current_node_on_path].capacitance<<endl;
             cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].level :"<<g[current_node_on_path].level<<endl;
             cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].type :"<<g[current_node_on_path].type<<endl;
@@ -3341,7 +3369,8 @@ vector<float> index_1;
                 cout<<"Temp Arrival Time "<<arrival_time(maxlevel,vertex_count,g,2);
 
                    //if(g[markednode].numreplacements==0 && (g[markednode].slack>average(g[markednode].delay_from_slew[0],g[markednode].delay_from_slew[1])-g[markednode].delay))
-                   if(g[markednode].numreplacements==0 && (g[markednode].slack>average(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay))
+                   //if(g[markednode].numreplacements==0 && (g[markednode].slack>average(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay))
+                   if(g[markednode].numreplacements==0) 
                     {
 
                        cout<<"g[markednode].numreplacements==0 && (g[markednode].slack>average(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay)"<<endl;
@@ -3373,7 +3402,9 @@ vector<float> index_1;
                        //slew_calculation(lvt_rise_transition_name_index_1,lvt_rise_transition_name_index_2,lvt_fall_transition_name_index_1,lvt_fall_transition_name_index_2,lvt_risetransitionmap,lvt_falltransitionmap,0, templevel,num1,g,1,lvt_gate_fp_map,hvt_gate_fp_map);
                        g[markednode].slew_old[0]=g[markednode].slew[0];
                        g[markednode].slew_old[1]=g[markednode].slew[1];
-
+                       pi_slew_r=0.1;
+                       pi_slew_f=0.1;
+                       
                        slew_calculation(hvt_rise_transition_name_index_1,hvt_rise_transition_name_index_2,hvt_fall_transition_name_index_1,hvt_fall_transition_name_index_2,hvt_risetransitionmap,hvt_falltransitionmap,0, maxlevel,vertex_count,g,lvt_gate_fp_map,hvt_gate_fp_map,markednode);
     //        slew_calculation(hvt_index_1,index_2,hvt_risetransitionmap,hvt_falltransitionmap,1, templevel,num1,g);
             // delay_calculation(hvt_index_rise_1,hvt_index_2,hvt_risemap,hvt_fallmap,0,templevel,num1,2,g,2,lvt_gate_fp_map,hvt_gate_fp_map);
@@ -3522,7 +3553,11 @@ vector<float> index_1;
             cout<<"---------------------------------------------------------------------------"<<endl;
             int current_node_on_path=*path_itr;
             cout<<"Node :"<<current_node_on_path<<" size of fanins"<<g[current_node_on_path].fanins.size()<<endl;
+            cout<<"predecessors :"<<endl;
+            print_nodes(g[current_node_on_path].fanins,g);
             cout<<"Node :"<<current_node_on_path<<" size of fanouts"<<g[current_node_on_path].fanouts.size()<<endl;
+            cout<<"successors :"<<endl;
+            print_nodes(g[current_node_on_path].fanouts,g);
             cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].level :"<<g[current_node_on_path].level<<endl;
             cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].type :"<<g[current_node_on_path].type<<endl;
             cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].leakage :"<<g[current_node_on_path].leakage<<endl;
