@@ -36,7 +36,7 @@ using namespace std;
     string type;
     double leakage[3];
     double capacitance;
-
+    double pred_slew_r_f[2];
     double delay[6];
     double arrival[2];
     double cumulativeslack;
@@ -101,36 +101,36 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
         cout<<"inside 1st for -- "<<i<<endl;
         for(int f=0;f<size;f++)
         {
-            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+             
             cout<<"inside 2nd for -- "<<f<<endl;
 
-            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+             
             cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
 
             count=0;
            if(g[f].level==i && i==levels)//the code for nodes having max levels starts here
             {       
-                        if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                         
                         cout<<"when first g[f].level==i && i==levels"<<endl;
 
-                        if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                         
                         cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
                         int parity=g[f].parity;
                         while(count<2)
                         {
-                            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                             
                             cout<<"inside while count val -- "<<count<<endl;
                                      slew=DBL_MIN;
                             for(intit=g[f].predecessors.begin();intit!=g[f].predecessors.end();intit++)
                             {
                                 
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"inside the for "<<endl;
                                 tempnode=*intit;
                                 
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"TX: g[tempnode].slew[val^parity] "<<g[tempnode].slew[val^parity]<<"parity "<<parity<<endl;
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"val : "<<val<<"slew :"<<slew<<endl;
                                 if(parity_on==1){
 
@@ -146,7 +146,7 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
                                 
                                 
                             }
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"The slew value is ---- "<<slew<<endl;
                                 g[f].slew[val]=slew;
                                 // val=~val;
@@ -159,7 +159,7 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
                         }
 
                             //cout<<g[f].slew[val]<<endl;
-                            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                             
                             cout<<"exited while count val -- "<<count<<endl;
                     
             }//the code for nodes having max levels ends here
@@ -167,17 +167,17 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
 
 
             if(g[f].level==i && i==0)//The code for nodes having level == 0 starts here
-            {               if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+            {                
                             cout<<"when g[f].level==i && i==0"<<endl;    
 
-                            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                             
                             cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
                             //g[f].slew[0]=PI_SLEW_R;
                             g[f].slew[0]=pi_slew_r;
                             g[f].slew[1]=pi_slew_f;
                             //g[f].slew[1]=PI_SLEW_F;
 
-                            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                             
                             cout<<"<<g[f].slew[0] :"<<g[f].slew[0]<<"<<g[f].slew[1] :"<<g[f].slew[1]<<endl;
                             
         
@@ -190,34 +190,34 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
             {
 
                 int parity=g[f].parity;
-                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                 
                 cout<<"when g[f].level==i && i!=levels && i >0 && g[f].type==PO"<<endl;
                 
-                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                 
                 cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;    
 
-                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                 
                 cout<<" parity :"<<parity<<" g[f].level :"<<g[f].level<<endl;
                 
 
                 while(count<2)//this part stays safe 
                 {           
-                            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                             
                             cout<<"inside while count val -- "<<count<<endl;
                             slew=DBL_MIN;
 
                             for(intit=g[f].predecessors.begin();intit!=g[f].predecessors.end();intit++)
                             {
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"inside the for "<<endl;
                                 tempnode=*intit;
                                 //if(g[tempnode].slew[val^parity]>slew)
                                 // if(g[tempnode].slew[val^parity]>slew)
                                 //     slew=g[tempnode].slew[val^parity];//removed ^parity
 
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"TX: g[tempnode].slew[val^parity] "<<g[tempnode].slew[val^parity]<<"parity "<<parity<<endl;
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"val : "<<val<<"slew :"<<slew<<endl;
                             
                                 if(parity_on==1){
@@ -232,7 +232,7 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
                                 }
                             }
                                 g[f].slew[val]=slew;
-                            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )    
+                                 
                             cout<<"g[f].slew[val]"<<g[f].slew[val]<<endl;
                             // val=~val;
                             if(val ==0)
@@ -242,7 +242,7 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
                             count++;
                 }
 
-                     if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )            
+                                  
                     cout<<"exited while count val -- "<<count<<endl;
         
             }//// The code for nodes that are POs but not on the last levels ends here
@@ -255,30 +255,30 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
             {
 
                         int parity=g[f].parity;
-                        if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                         
                         cout<<"when g[f].level==i && i>0 && i!=levels && g[f].type!=PO"<<endl;
                                 
-                        if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                         
                         cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;               
                            //cout<<"f:"<<f<<"TEMPVAL"<<tempval<<"VAL"<<val<<endl; 
                         while(count<2)
                         {
-	                    slew=DBL_MIN;
-                            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                        slew=DBL_MIN;
+                             
                             cout<<"inside while count val -- "<<count<<endl;
                             for(intit=g[f].predecessors.begin();intit<g[f].predecessors.end();intit++)//this part stays safe
                             {
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"inside the first for "<<endl;
                                 // cout<<"TX: g[tempnode].slew[val^parity] "<<g[tempnode].slew[val^parity]<<"parity "<<parity<<endl;
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"val : "<<val<<"slew :"<<slew<<endl;
 
                                 tempnode=*intit;
                                 if(parity_on==1){
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                     cout<<"predecessors Node Type "<<g[tempnode].type<<"Present Node type :"<<g[f].type<<endl;
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                     cout<<"TX: g[tempnode].slew[val^parity] "<<g[tempnode].slew[val^parity]<<"parity "<<parity<<endl;
                                      if(g[tempnode].slew[val^parity]>slew)//removed ^parity
                                          slew=g[tempnode].slew[val^parity];//removed ^parity
@@ -308,9 +308,9 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
                                 vector<float> index_1=inputslew_r[searchby];
                                 for (int t=0;t<index_1.size();t++)
                                 {
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                     cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                     cout<<"inside the second for - is slew<index_1[i]"<<" slew "<<slew<<" index_1[i] "<<index_1[t]<<endl;
                                     //if(slew<index_1[t])- previously this was i
                                     if(t==index_1.size()-1)
@@ -348,19 +348,19 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
 
                             }
 
-                            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                             
                             cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
 
-                            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                             
                            cout<<"X1:"<<x1<<"X2:"<<x2<<endl;
                            vector<float> index_2=loadCapacitance_r[searchby];
                            
                             for(int t=0;t<index_2.size();t++)
                             {
 
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"inside the third for - g[f].capacitance : "<<g[f].capacitance<<"index_2[t] : "<<index_2[t]<<endl;
                                  if(t==index_2.size()-1)
                                  {
@@ -391,13 +391,13 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
 
                             }
 
-                           if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                            
                            cout<<"X3:"<<x3<<"X4:"<<x4<<endl;
                             
 
                             
                             //} else{}
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )                           
+                                                            
                                 cout<<"when val==0"<<endl;
                                 // cout<<g[f].type<<"-g[f].type "<<x1<<" -x1 "<<x2<<" -x2 "<<x3<<" -x3 "<<x4<<" -x4 "<<endl;
                                 
@@ -423,9 +423,9 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
 
                                     //yleft=risetransitionmap[g[f].type][7*x1+x3];
                                     yleft=risetransitionmap[searchby][7*x1+x3];
-                                   if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                    
                                     cout<<" X1: "<<x1<<" X4: "<<x4<<" X3: "<<x3;    
-                                   if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 ) 
+                                     
                                     cout<<"risetransitionmap[searchby][7*x1+x3] "<<risetransitionmap[searchby][7*x1+x3]<<"risetransitionmap[searchby][7*x1+x4] :"<<risetransitionmap[searchby][7*x1+x4]<<endl;
                                     //yright=risetransitionmap[g[f].type][7*x1+x4];   
                                     yright=risetransitionmap[searchby][7*x1+x4];   
@@ -446,55 +446,55 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
                                     // }
                                     // yright=risetransitionmap[g[f].type][x4];
 
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                     cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
 
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                     cout<<" X1: "<<x1<<"X2: "<<x2<<" X4: "<<x4<<" X3: "<<x3;    
                                     // cout<<"risetransitionmap[searchby][7*x1+x3] "<<risetransitionmap[searchby][7*x1+x3]<<"risetransitionmap[searchby][7*x1+x4] :"<<risetransitionmap[searchby][7*x1+x4]<<endl;
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                     cout<<"xleft "<<xleft<<"yleft "<<yleft<<" xright "<<xright<<" yright"<<yright<<endl;
                                     
                                     yright=risetransitionmap[searchby][x4];
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                     cout<<searchby<<" :searchby "<<yright<<" :yright"<<endl;
                                 }
 
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
 
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"start"<<endl;
-                                 if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                  
                                 cout<<"xleft "<<xleft<<"yleft "<<yleft<<" xright "<<xright<<" yright"<<yright<<endl;
                                 minslew=interpolate(xleft,xright,yleft,yright,g[f].capacitance);
                                 
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"MIN SLEW : "<<minslew<<endl;
                                 xleft=index_2[x3];
                                 xright=index_2[x4];
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<" X1: "<<x1<<"X2: "<<x2<<" X4: "<<x4<<" X3: "<<x3;
-                            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                             
                                 cout<<"risetransitionmap[searchby][7*x2+x3] "<<risetransitionmap[searchby][7*x2+x3]<<"risetransitionmap[searchby][7*x2+x4] :"<<risetransitionmap[searchby][7*x2+x4]<<endl;
 
                                     // yleft=risetransitionmap[g[f].type][7*x2+x3];
-                            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                             
                                 cout<< searchby <<" :searchby"<<7*x2+x3<<"7*x2+x3"<<endl;
                                 double old_y_left=yleft;
                                 yleft=risetransitionmap[searchby][7*x2+x3];
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"old yleft | new yleft "<<old_y_left<<" | "<<yleft<<endl;
 
                                     // yright=risetransitionmap[g[f].type][7*x2+x4];   
                                 double old_y_right= yright;
                                 yright=risetransitionmap[searchby][7*x2+x4];  
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"old yright | new yright "<<old_y_right<<" | "<<yright<<endl;
                                 maxslew=interpolate(xleft,xright,yleft,yright,g[f].capacitance);
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"xleft "<<xleft<<"yleft "<<yleft<<" xright "<<xright<<" yright"<<yright<<"g[f].capacitance :"<<g[f].capacitance<<endl;
-                               if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                
                                 cout<<"MAX SLEW : "<<maxslew<<endl;
                                 if(x1==-1){
                                      x1=0;
@@ -504,9 +504,9 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
                                 } else {
                                     g[f].slew[val]=interpolate(index_1[x1],index_1[x2],minslew,maxslew,slew);
                                 }
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"SLEW: when val 0"<<g[f].slew[val]<<endl;
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                g[f].pred_slew_r_f[0]=slew; 
                                 cout<<"end"<<endl;            
                             }else if(val==1){
 
@@ -524,7 +524,7 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
                                 vector<float> index_1=inputslew_f[searchby];
                                 for (int t=0;t<index_1.size();t++)
                                 {
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                     cout<<"inside the second for - is slew<index_1[i]"<<" slew "<<slew<<" index_1[i] "<<index_1[t]<<endl;
                                     //if(slew<index_1[t])- previously this was i
                                     if(t==index_1.size()-1)
@@ -562,14 +562,14 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
 
                             }
 
-                            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                             
                             cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
-                            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                             
                            cout<<"X1:"<<x1<<"X2:"<<x2<<endl;
                            vector<float> index_2=loadCapacitance_f[searchby];
                            
                             for(int t=0;t<index_2.size();t++)
-                            {   if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                            {    
                                 cout<<"inside the third for - g[f].capacitance : "<<g[f].capacitance<<"index_2[t] : "<<index_2[t]<<endl;
                                  if(t==index_2.size()-1)
                                  {
@@ -599,32 +599,32 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
                                  } 
 
                             }
-                            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                             
                            cout<<"X3:"<<x3<<"X4:"<<x4<<endl;
                             
 
 
 
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"when val==1"<<endl;
                                 if(x1!=-1)
                                 {
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                     cout<<"when x1 != -1 x3 "<<x3<<" x4 "<<x4<<endl;
                                     xleft=index_2[x3];
                                     xright=index_2[x4];
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                    cout<<"xleft:"<<xleft<<" xright: "<<xright<<endl;//"num elements: "<<falltransitionmap[g[f].type].size()<<endl;
 
                                     // yleft=falltransitionmap[g[f].type][7*x1+x3];
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                     cout<<" X1: "<<x1<<"X2: "<<x2<<" X4: "<<x4<<" X3: "<<x3;
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                     cout<<"falltransitionmap[searchby][7*x1+x3]; "<<falltransitionmap[searchby][7*x1+x3]<<"falltransitionmap[searchby][7*x1+x4]; :"<<falltransitionmap[searchby][7*x1+x4]<<endl;
                                     yleft=falltransitionmap[searchby][7*x1+x3];
                                     // yright=falltransitionmap[g[f].type][7*x1+x4];   
                                     yright=falltransitionmap[searchby][7*x1+x4];   
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                     cout<<"xleft:"<<xleft<<" xright: "<<xright<<" yleft: "<<yleft<<" yright: "<<yright<<endl;
 
                                 }
@@ -639,7 +639,7 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
                                     x2=1;
                                 }
 
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"start"<<endl;
                                 minslew=interpolate(xleft,xright,yleft,yright,g[f].capacitance);
                                     xleft=index_2[x3];
@@ -650,19 +650,21 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
                                     yright=falltransitionmap[searchby][7*x2+x4];   
                                     maxslew=interpolate(xleft,xright,yleft,yright,(double) g[f].capacitance);
                                     if(x1!=-1){
-                                        if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                         
                                         cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
 
-                                        if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                         
                                         cout<<" X1 not equals - 1"<<endl;
-                                        if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                         
                                         cout<<"index_1[x1] :"<< index_1[x1]<<" index_1[x2] :"<<index_1[x2]<<"MIN SLEW "<<minslew<<" max slew"<<maxslew<<" slew "<<slew<<endl;
                                         g[f].slew[val]=interpolate(index_1[x1],index_1[x2],minslew,maxslew, (double) slew);
-                                        if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                         
                                         cout<<"SLEW when val 1 :"<<g[f].slew[val];
                                     }
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )        
+                                
+                                g[f].pred_slew_r_f[1]=slew; 
                                 cout<<"end"<<endl;    
+
                             }
                             // val=~val;
                             if (val == 0)
@@ -671,9 +673,9 @@ void slew_calculation( map<string,vector<float>> &inputslew_r,map<string,vector<
                                  val = 0;  
                             count++;
                         }
-                        if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                         
                         cout<<"outside while count val -- "<<count<<endl;
-                        if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                         
                         cout<<f<<": f "<<g[f].slew[0]<<" g[f].slew[0] "<<g[f].slew[1]<<" g[f].slew[1] "<<endl;
             }
             }
@@ -692,12 +694,12 @@ void delay_calculation(map<string,vector<float>> &inputslew_r,map<string,vector<
        double xleft,xright,yleft,yright,xval;
        for (int f=0;f<size-1;f++)
        {
-            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+             
             cout<<"Inside the first for - Delay - "<<f<<endl;
            if(g[f].type!="PI" && g[f].type!="PO")
            {
 
-            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+             
             cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
 
             if(tempval==0)
@@ -713,11 +715,11 @@ void delay_calculation(map<string,vector<float>> &inputslew_r,map<string,vector<
                     searchby=gate_fp_map_lvt[g[f].type];
 
                 vector<float> index_1=inputslew_r[searchby];  
-                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )  
+                   
                 cout<<"when g[f].type!=PI && g[f].type!=PO"<<endl;
                  for (int t=0;t<index_1.size();t++)
                  {
-                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                     
                         cout<<"Inside the second for 1 - Delay"<<endl;
                                 // if(g[f].slew[tempval]<index_1[t])
                                 // {
@@ -738,7 +740,8 @@ void delay_calculation(map<string,vector<float>> &inputslew_r,map<string,vector<
                         }
 
 
-                        if(g[f].slew[tempval]>index_1[t])
+                        //if(g[f].slew[tempval]>index_1[t])
+                        if(g[f].pred_slew_r_f[tempval]>index_1[t])                        
                         {
                             x1=t-1;
                             x2=t;
@@ -759,15 +762,15 @@ void delay_calculation(map<string,vector<float>> &inputslew_r,map<string,vector<
 
                 }//this is where the for index scanning ends 
 
-                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                 
             cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
-                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                 
                 cout<<"X1: "<<x1<<" X2: "<<x2<<endl;
 
                 vector<float> index_2=loadCapacitance_r[searchby];
                 for(int t=0;t<index_2.size();t++)
                 {
-                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                     
                     cout<<"Inside the second for 2 - Delay"<<endl;
                                  //if(g[f].capacitance<index_2[t])
                                  // {
@@ -809,15 +812,15 @@ void delay_calculation(map<string,vector<float>> &inputslew_r,map<string,vector<
 
                 }// end of the second for 
 
-                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                 
                 cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
 
-                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                 
                 cout<<"X3: "<<x3<<" X4: "<<x4<<endl;
 
                 
                             //if(vt_type==1){
-                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                 
                 cout<<g[f].type<<endl;
                     // 
                     // string searchby="";
@@ -836,9 +839,9 @@ void delay_calculation(map<string,vector<float>> &inputslew_r,map<string,vector<
 
                 // if(tempval==0)
                 // {
-                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                     
                     cout<<"Inside tempval==0"<<endl;
-                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                     
                     cout<<searchby<<"-g[f].type "<<x1<<" -x1 "<<x2<<" -x2 "<<x3<<" -x3 "<<x4<<" -x4 "<<endl;
                         // cout<<risemap["OR2KHD"][1]<<endl;
                         //map  xcd       
@@ -846,10 +849,10 @@ void delay_calculation(map<string,vector<float>> &inputslew_r,map<string,vector<
                         {
                             xleft=index_2[x3];
                             xright=index_2[x4];
-                            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                             
                             cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
 
-                            if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                             
                             cout<<"XLEFT: "<<xleft<<"XRIGHT: "<<xright<<endl;
                                     // cout<<risemap[g[f].type]<<endl;
                                     // yleft=risemap[g[f].type][7*x1+x3];
@@ -877,15 +880,15 @@ void delay_calculation(map<string,vector<float>> &inputslew_r,map<string,vector<
                                     // yright=risemap[g[f].type][7*x2+x4];   
                         yright=risemap[searchby][7*x2+x4];   
                         maxdelay=interpolate(xleft,xright,yleft,yright,g[f].capacitance);
-                        if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                         
                         cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
-                        if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                         
                         cout<<"MINDELAY :"<<mindelay<<" MAXDELAY "<<maxdelay<<"NUM ELTS: "<<risemap[g[f].type].size()<<endl;
                                     //cout<<g[f].slew[tempval]<<endl;
                         if(x1!=-1)
                             g[f].delay[position]=interpolate(index_1[x1],index_1[x2],mindelay,maxdelay,g[f].slew[tempval]);
                                     
-                        if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )            
+                                     
                         cout<<"For val : "<<tempval<<"||"<<g[f].delay[position]<<"is delay of pos "<<position<<"For node "<<f<<"of type "<<g[f].type<<endl; 
                                 //cout<<g[f].delay[0]<<endl;
                 }
@@ -903,11 +906,11 @@ void delay_calculation(map<string,vector<float>> &inputslew_r,map<string,vector<
                         searchby=gate_fp_map_lvt[g[f].type];
 
                     vector<float> index_1=inputslew_f[searchby];   
-                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 ) 
+                      
                     cout<<"when g[f].type!=PI && g[f].type!=PO"<<endl;
                     for (int t=0;t<index_1.size();t++)
                     {
-                        if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                         
                         cout<<"Inside the second for 1 - Delay"<<endl;
                                 // if(g[f].slew[tempval]<index_1[t])
                                 // {
@@ -928,7 +931,8 @@ void delay_calculation(map<string,vector<float>> &inputslew_r,map<string,vector<
                         }
 
 
-                        if(g[f].slew[tempval]>index_1[t])
+                        //if(g[f].slew[tempval]>index_1[t])
+                        if(g[f].pred_slew_r_f[tempval]>index_1[t])                        
                         {
                             x1=t-1;
                             x2=t;
@@ -948,16 +952,16 @@ void delay_calculation(map<string,vector<float>> &inputslew_r,map<string,vector<
                         }
 
                     }//this is where the for index scanning ends 
-                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                 
                 cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
 
-                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                 
                     cout<<"X1: "<<x1<<" X2: "<<x2<<endl;
 
                 vector<float> index_2=loadCapacitance_f[searchby];
                 for(int t=0;t<index_2.size();t++)
                 {
-                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                     
                     cout<<"Inside the second for 2 - Delay "<<f<<endl;
                                  //if(g[f].capacitance<index_2[t])
                                  // {
@@ -998,15 +1002,15 @@ void delay_calculation(map<string,vector<float>> &inputslew_r,map<string,vector<
                     }   
 
                 }// end of the second for 
-                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                 
                 cout<<"X3: "<<x3<<" X4: "<<x4<<endl;
 
                 
                             //if(vt_type==1){
-                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                 
                 cout<<"f -:"<<f<<g[f].type<<endl;                    
 
-                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                     
                     cout<<"Inside tempval==1"<<endl;
                     if(x1!=-1)
                     {
@@ -1030,9 +1034,9 @@ void delay_calculation(map<string,vector<float>> &inputslew_r,map<string,vector<
                     }
 
                                 mindelay=interpolate(xleft,xright,yleft,yright,g[f].capacitance);
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
-                                if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                 
                                 cout<<"MIN Delay :"<<mindelay<<endl;
                                     xleft=index_2[x3];
                                     xright=index_2[x4];
@@ -1041,14 +1045,14 @@ void delay_calculation(map<string,vector<float>> &inputslew_r,map<string,vector<
                                     // yright=fallmap[g[f].type][7*x2+x4];   
                                     yright=fallmap[searchby][7*x2+x4];   
                                     maxdelay=interpolate(xleft,xright,yleft,yright,g[f].capacitance);
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                     cout<<"for Node - "<<f<<" of type - "<<g[f].type<<endl;
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                     cout<<"MAX Delay :"<<maxdelay<<endl;
                                     if(x1!=-1)
                                         g[f].delay[position]=interpolate(index_1[x1],index_1[x2],mindelay,maxdelay,g[f].slew[tempval]);
                                     
-                                    if(f==26149 || f==2789|| f==8616|| f==8602|| f==132791|| f==97948|| f==97947|| f==97945|| f==97944|| f==9663 || f==9662 || f==163436 )
+                                     
                                      cout<<"For val : "<<tempval<<"||"<<g[f].delay[position]<<"is delay of pos "<<position<<"For node "<<f<<"of type "<<g[f].type<<endl; 
                     }
 
@@ -2181,8 +2185,8 @@ vector<float> index_1;
 
     string s_pi_r= argv[23];
     string s_pi_f= argv[24];
-    pi_slew_r=::atof(s_pi_r.c_str())/100;
-    pi_slew_f=::atof(s_pi_f.c_str())/100;
+    pi_slew_r=::atof(s_pi_r.c_str())/1000;
+    pi_slew_f=::atof(s_pi_f.c_str())/1000;
         
 
 
@@ -2342,7 +2346,7 @@ vector<float> index_1;
             cout<<"======= Following are the list of Slews for different Node============="<<endl;
 
             ofstream slew_lvt_file;
-            slew_lvt_file.open("lvt_slew_file_18_08_1.txt");
+            slew_lvt_file.open("lvt_slew_c_file_24_08_1.txt");
             for(int i=0;i<num1-1;i++)
             {
                 // if(i==26149 || i==2789|| i==8616|| i==8602|| i==132791|| i==97948|| i==97947|| i==97945|| i==97944|| i==9663 || i==9662 || i==163436 )
@@ -2409,43 +2413,69 @@ vector<float> index_1;
             double initial_net_capacitance= 0.03;
             double initial_net_capacitance_less_fanout= 0.03;
             double decline_rate=0.000435;
-            int rf=  number_of_fanouts - 7;
+            int rf=  number_of_fanouts - 10;
             if(loadCapacitance == 0){
                 if(number_of_fanouts == 1)
-                    g[i].capacitance= 0.03;//0.028;
-                // else if(number_of_fanouts == 2)
-                //     g[i].capacitance=initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.013;
-                // else if(number_of_fanouts == 3)
-                //     g[i].capacitance=initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.016;
-                else if(number_of_fanouts>1 && number_of_fanouts <=3)
-                    g[i].capacitance= initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.022;
-                else if(number_of_fanouts>3 && number_of_fanouts <=5)
-                    g[i].capacitance= initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.02;
-                else if(number_of_fanouts>5 && number_of_fanouts <8)
+                    g[i].capacitance= 0.03;
+
+                else if(number_of_fanouts>1 && number_of_fanouts <=10)
                     g[i].capacitance= initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.01;
+                
                 else        
-                    g[i].capacitance=initial_net_capacitance+(rf-1)*0.001+7*0.018;
+                    g[i].capacitance=initial_net_capacitance+(rf-1)*0.001+9*0.01;
 
             }else{ 
                 
                 if(number_of_fanouts == 1)
                     g[i].capacitance= 0.03+loadCapacitance;
-                // else if(number_of_fanouts == 2)
-                //     g[i].capacitance=initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.013;
-                // else if(number_of_fanouts == 3)
-                //     g[i].capacitance=initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.016;
-                else if(number_of_fanouts>1 && number_of_fanouts <=3)
-                    g[i].capacitance= loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.022;
-                else if(number_of_fanouts >3 && number_of_fanouts <=5)
-                     //g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.014;
-                    g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.02;
-                else if(number_of_fanouts >5 && number_of_fanouts <8)
-                     //g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.014;
-                    g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.01;
+                else if(number_of_fanouts >1 && number_of_fanouts <=10)
+                     g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.01;
                 else   
-                    g[i].capacitance=loadCapacitance+initial_net_capacitance+(rf-1)*0.001+7*0.018;
+                    g[i].capacitance=loadCapacitance+initial_net_capacitance+(rf-1)*0.001+9*0.01;
                 
             }
+
+            // int number_of_fanouts=successor_map.size();
+            // double initial_net_capacitance= 0.03;
+            // double initial_net_capacitance_less_fanout= 0.03;
+            // double decline_rate=0.000435;
+            // int rf=  number_of_fanouts - 7;
+            // if(loadCapacitance == 0){
+            //     if(number_of_fanouts == 1)
+            //         g[i].capacitance= 0.03;//0.028;
+            //     // else if(number_of_fanouts == 2)
+            //     //     g[i].capacitance=initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.013;
+            //     // else if(number_of_fanouts == 3)
+            //     //     g[i].capacitance=initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.016;
+            //     else if(number_of_fanouts>1 && number_of_fanouts <=3)
+            //         g[i].capacitance= initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.022;
+            //     else if(number_of_fanouts>3 && number_of_fanouts <=5)
+            //         g[i].capacitance= initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.02;
+            //     else if(number_of_fanouts>5 && number_of_fanouts <8)
+            //         g[i].capacitance= initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.01;
+            //     else        
+            //         g[i].capacitance=initial_net_capacitance+(rf-1)*0.001+7*0.018;
+
+            // }else{ 
+                
+            //     if(number_of_fanouts == 1)
+            //         g[i].capacitance= 0.03+loadCapacitance;
+            //     // else if(number_of_fanouts == 2)
+            //     //     g[i].capacitance=initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.013;
+            //     // else if(number_of_fanouts == 3)
+            //     //     g[i].capacitance=initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.016;
+            //     else if(number_of_fanouts>1 && number_of_fanouts <=3)
+            //         g[i].capacitance= loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.022;
+            //     else if(number_of_fanouts >3 && number_of_fanouts <=5)
+            //          //g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.014;
+            //         g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.02;
+            //     else if(number_of_fanouts >5 && number_of_fanouts <8)
+            //          //g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.014;
+            //         g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.01;
+            //     else   
+            //         g[i].capacitance=loadCapacitance+initial_net_capacitance+(rf-1)*0.001+7*0.018;
+                
+            // }
 
             // for(Vitr=successor_map.begin();Vitr!=successor_map.end();Vitr++){
             //     int cell_no=*Vitr;
@@ -2529,7 +2559,7 @@ vector<float> index_1;
         ofstream myfile;
          string::size_type pos=filename.find(".");
     if(pos !=string::npos){
-        filename.replace(pos,4,".rise_18_08_1_"+s_pi_r+"_"+s_pi_f);
+        filename.replace(pos,4,".rise_c_25_08_1_"+s_pi_r+"_"+s_pi_f);
     }
         myfile.open(filename.c_str());
 
@@ -2559,7 +2589,7 @@ vector<float> index_1;
 
         myfile.close();
         ofstream slew_hvt_file;
-        slew_hvt_file.open("hvt_slew_file_18_08_1.txt");
+        slew_hvt_file.open("hvt_slew_file_c_25_08_1.txt");
         cout<<"======= Following are the list of Slews for different Node============="<<endl;
         for(int i=0;i<size;i++)
         {
