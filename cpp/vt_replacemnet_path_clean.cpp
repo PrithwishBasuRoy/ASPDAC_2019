@@ -2958,13 +2958,10 @@ int main(int argc,char *argv[])
     ifstream lvtrisetransitionmap(argv[19]);
     linecount = 0;
     current_token_name="";
-    //size_t sz;
-    //string line;
     while(getline(lvtrisetransitionmap,line)){
 
         //cout<<"I am in lvt cell rise map"<<endl;
         if(linecount == 0){
-            // linecount++;
             int len= line.length();
             current_token_name= line.substr(0,len);
             linecount++;
@@ -2984,7 +2981,6 @@ int main(int argc,char *argv[])
             
             lvt_rise_transition_name_index_1[current_token_name]=index_1;
             index_1=vector<float>();
-            //cout<<endl;
             linecount++;
 
 
@@ -3007,21 +3003,16 @@ int main(int argc,char *argv[])
 
     }
 
-    cout<<"Reading the round transition file is done"<<endl;
-    cout<<"Reading LVT fall transition file started"<<endl;
-    //map<string, vector<float>> lvt_fall_transition_name_index_1;
-    //map<string, vector<float>> lvt_fall_transition_name_index_2;
+//    cout<<"Reading the round transition file is done"<<endl;
+//    cout<<"Reading LVT fall transition file started"<<endl;
     // reading the lvt_cell_rise file 
     ifstream lvtfalltransitionmap(argv[20]);
     linecount = 0;
     current_token_name="";
-    //size_t sz;
-    //string line;
     while(getline(lvtfalltransitionmap,line)){
 
-        // cout<<"I am in lvt cell rise map"<<endl;
+        // cout<<"Reading LVT cell fall transition map"<<endl;
         if(linecount == 0){
-            // linecount++;
             int len= line.length();
             current_token_name= line.substr(0,len);
             linecount++;
@@ -3042,7 +3033,6 @@ int main(int argc,char *argv[])
             
             lvt_fall_transition_name_index_1[current_token_name]=index_1;
             index_1=vector<float>();
-           // cout<<endl;
             linecount++;
 
 
@@ -3065,36 +3055,20 @@ int main(int argc,char *argv[])
 
     }
 
-    cout<<"LVT Fall transition index reading done"<<endl;
-    // following code is used to print the elements present in the index1 for each of the token/cell
-    // map<string,vector<float>>::iterator itr;
-    // for(itr=lvt_name_index_1.begin();itr!=lvt_name_index_1.end();++itr){
+//    cout<<"LVT Fall transition index reading done"<<endl;
+//    cout<<endl;
+//    cout<<"----------------------Begining to read the HVT cell indices-----------------------"<<endl;
 
-    //      cout<<itr->first<<"\n";
-    //      vector<float> id=itr->second;
-    //      vector<float>::iterator idItr;
-    //      for(idItr=id.begin();idItr!=id.end();idItr++){
-    //          cout<<*idItr<<"\t";
-    //      }
-    //      cout<<endl;
-    // }
-    cout<<endl;
-    cout<<"----------------------Begining to read the HVT cell indices-----------------------"<<endl;
-
-    //map<string, vector<float>> hvt_cell_rise_name_index_1;
-    //map<string, vector<float>> hvt_cell_rise_name_index_2;
     // reading the lvt_cell_rise file 
     ifstream hvtcellrisemap(argv[21]);
     linecount = 0;
     current_token_name="";
-    //size_t sz;
     line="";
-    cout<<"Reading the Cell Rise Index File started"<<endl;
+//    cout<<"Reading the Cell Rise Index File started"<<endl;
     while(getline(hvtcellrisemap,line)){
 
-        //cout<<"I am in lvt cell rise map"<<endl;
+        //cout<<"reading Hvt cell rise indices map"<<endl;
         if(linecount == 0){
-            // linecount++;
             int len= line.length();
             current_token_name= line.substr(0,len);
             linecount++;
@@ -3112,17 +3086,10 @@ int main(int argc,char *argv[])
 
             }
 
-            // vector<float>::iterator itr;
-            // for(itr=index_1.begin();itr!=index_1.end();++itr){
-
-            //  cout<<*itr<<"\t";
-            // }
-            // cout<<endl;
-            // cout<<"---------------------------------------------"<<endl;
+            
             
             hvt_cell_rise_name_index_1[current_token_name]=index_1;
             index_1=vector<float>();
-            //cout<<endl;
             linecount++;
 
 
@@ -3145,23 +3112,17 @@ int main(int argc,char *argv[])
 
     }
 
-    cout<<"Reading the rise index file is done"<<endl;
-    cout<<"Reading the Cell Fall Index File started"<<endl;
+//    cout<<"Reading the rise index file is done"<<endl;
+//    cout<<"Reading the Cell Fall Index File started"<<endl;
 
-    //This code deal with the lvt_cell_fall index
-    // map<string, vector<float>> hvt_cell_fall_name_index_1;
-    // map<string, vector<float>> hvt_cell_fall_name_index_2;
-    // reading the lvt_cell_rise file 
+    // reading the hvt_cell_fall_index file 
     ifstream hvtcellfallmap(argv[22]);
     linecount = 0;
     current_token_name="";
-    //size_t sz;
-    //string line;
     while(getline(hvtcellfallmap,line)){
 
-        //cout<<"I am in lvt cell fall map"<<endl;
+        //cout<<"hvt cell fall inex map"<<endl;
         if(linecount == 0){
-            // linecount++;
             int len= line.length();
             current_token_name= line.substr(0,len);
             linecount++;
@@ -3182,7 +3143,6 @@ int main(int argc,char *argv[])
             
             hvt_cell_fall_name_index_1[current_token_name]=index_1;
             index_1=vector<float>();
-            //cout<<endl;
             linecount++;
 
 
@@ -3205,22 +3165,17 @@ int main(int argc,char *argv[])
 
     }
 
-    cout<<"Reading the fall index file is done"<<endl;
-    cout<<"Now reading the Rise Transition File "<<endl;
+//    cout<<"Reading the HVT fall index file is done"<<endl;
+//    cout<<"Now reading the Rise Transition File "<<endl;
 
-    //map<string, vector<float>> hvt_rise_transition_name_index_1;
-    //map<string, vector<float>> hvt_rise_transition_name_index_2;
-    // reading the lvt_cell_rise file 
+    // reading the lvt_cell_rise_transition file 
     ifstream hvtrisetransitionmap(argv[23]);
     linecount = 0;
     current_token_name="";
-    //size_t sz;
-    //string line;
     while(getline(hvtrisetransitionmap,line)){
 
-        //cout<<"I am in lvt cell rise map"<<endl;
+        //cout<<"I am in hvt cell rise indices map"<<endl;
         if(linecount == 0){
-            // linecount++;
             int len= line.length();
             current_token_name= line.substr(0,len);
             linecount++;
@@ -3263,21 +3218,16 @@ int main(int argc,char *argv[])
 
     }
 
-    cout<<"Reading the round transition file is done"<<endl;
-    cout<<"Reading HVT fall transition file started"<<endl;
-    //map<string, vector<float>> hvt_fall_transition_name_index_1;
-    //map<string, vector<float>> hvt_fall_transition_name_index_2;
-    // reading the lvt_cell_rise file 
+//    cout<<"Reading the round transition file is done"<<endl;
+//    cout<<"Reading HVT fall transition file started"<<endl;
+    // reading the HVT_fall_transition_indiced file 
     ifstream hvtfalltransitionmap(argv[24]);
     linecount = 0;
     current_token_name="";
-    //size_t sz;
-    //string line;
     while(getline(hvtfalltransitionmap,line)){
 
-        // cout<<"I am in lvt cell rise map"<<endl;
+        // cout<<"Reading Hvt cell fall transition indices map"<<endl;
         if(linecount == 0){
-            // linecount++;
             int len= line.length();
             current_token_name= line.substr(0,len);
             linecount++;
@@ -3298,7 +3248,6 @@ int main(int argc,char *argv[])
             
             hvt_fall_transition_name_index_1[current_token_name]=index_1;
             index_1=vector<float>();
-            // cout<<endl;
             linecount++;
 
 
@@ -3321,14 +3270,14 @@ int main(int argc,char *argv[])
 
     }
 
-    cout<<"HVT Fall transition index reading done"<<endl;
+//    cout<<"HVT Fall transition index reading done"<<endl;
 
 
 
 
             //////////////////////////////////////////////////////////////////////////////////////////////////
             //                                                                                              // 
-            //                    Inserting the code considering different Idexes -End                      //
+            //                    Inserting the code considering different Indexes -End                     //
             //                                                                                              // 
             //////////////////////////////////////////////////////////////////////////////////////////////////                                                                                              
 
@@ -3340,8 +3289,6 @@ int main(int argc,char *argv[])
             //integer variable to store the number of PIs
             int pi;
 
-            //hash table where key is the gate type and value is the gate load capacitance - not used in the program
-            //map<string,double> capacitancemap;
 
             //temporary string variable used 
             string gate_type;
@@ -3359,27 +3306,15 @@ int main(int argc,char *argv[])
 
 
 
-            // Reading gate parity added on 12-09-2013
-//            string choice=argv[6]; 
-
-            //hash maps for different gate parameters- 
-            //map<string,int> paritymap;
-            // map<int,vector<double>> risedelaymap;
-            // map<int,vector<double>> falldelaymap;
-            // map<string,double> lvtleakagemap;
-            // // map<string,double> rvtleakagemap;
-            // map<string,double> hvtleakagemap;
-
+            //Reading LVT and HVT fall delay
             ifstream risedelayfile(argv[25]);
 
-            //count is a debug variable, used to count the number of lines, while reading the file
-            //int count=0;
+
             int vertex_iterator=0;
             while(risedelayfile.good())
             {
                 getline(risedelayfile,line);
-                //count=0;
-
+ 
                 stringstream ss(line);
                 
                 while(ss>>gate_parameter)
@@ -3391,14 +3326,13 @@ int main(int argc,char *argv[])
             }
             risedelayfile.close();
 
+            //Reading LVT and HVT fall delay
             ifstream falldelayfile(argv[26]);
             vertex_iterator=0;
-            //count=0;
             while(falldelayfile.good())
             {
                 getline(falldelayfile,line);
-                //count=0;
-
+ 
                 stringstream ss(line);
                 
                 while(ss>>gate_parameter)
@@ -3411,22 +3345,7 @@ int main(int argc,char *argv[])
             }
             falldelayfile.close();
 
-            /*ifstream rvtleakagefile(argv[7]);
-            while (rvtleakagefile.good())
-            {
-                getline(rvtleakagefile,line);
-                stringstream ss(line);
-                ss>>gate_type;
-                while(ss>>gate_parameter)
-                {
-
-                    rvtleakagemap[gate_type]=gate_parameter;
-                }
-
-            }
-            //cout<<"rvtleakage done"<<endl;
-            rvtleakagefile.close();*/
-
+            //Reading the HVT LEAKAGE file 
             ifstream hvtleakagefile(argv[27]);
             while (hvtleakagefile.good())
             {
@@ -3442,9 +3361,10 @@ int main(int argc,char *argv[])
                 cout<<hvtleakagemap[gate_type]<<endl;
 
             }
-            cout<<"hvtleakage done"<<endl;
+//            cout<<"hvtleakage done"<<endl;
             hvtleakagefile.close();
 
+            //Reading LVT leakage file 
             ifstream lvtleakagefile(argv[28]);
             while (lvtleakagefile.good())
             {
@@ -3460,11 +3380,12 @@ int main(int argc,char *argv[])
                 cout<<lvtleakagemap[gate_type]<<endl;
 
             }
-            cout<<"lvtleakage done"<<endl;
+           // cout<<"lvtleakage done"<<endl;
             lvtleakagefile.close();
 
 
            //double gate_parameter;
+            //Reading SLEW file for LVT cells 
             ifstream slewfilelvt(argv[29]);
             vertex_iterator=0;
             while(slewfilelvt.good())
@@ -3477,9 +3398,7 @@ int main(int argc,char *argv[])
                 int i=0;
                 while(ss>>gate_parameter)
                 {
-                    //risedelaymap[vertex_iterator].push_back(gate_parameter);
                     g[vertex_iterator].slew[i]=gate_parameter;
-                    cout<<"gate_parameter :"<< gate_parameter<<"LVT Vertex :"<<vertex_iterator<<" i :"<<i<<" g[vertex_iterator].slew[i]"<<g[vertex_iterator].slew[i]<<endl;
                     i++;
                     
                 }
@@ -3488,21 +3407,18 @@ int main(int argc,char *argv[])
             slewfilelvt.close();
 
         
-
+            //Reading SLEW file for HVT cells 
             ifstream slewfilehvt(argv[30]);
             vertex_iterator=0;
             while(slewfilehvt.good())
             {
                 getline(slewfilehvt,line);
-                //count=0;
 
                 stringstream ss(line);
                 int i=0;
                 while(ss>>gate_parameter)
                 {
-                    //risedelaymap[vertex_iterator].push_back(gate_parameter);
                     g[vertex_iterator].hvt_slew[i]=gate_parameter;
-                    cout<<"gate_parameter :"<< gate_parameter<<" HVT Vertex :"<<vertex_iterator<<" i :"<<i<<" g[vertex_iterator].slew[i]"<<g[vertex_iterator].hvt_slew[i]<<endl;
                     i++;
                     
                 }
@@ -3515,30 +3431,6 @@ int main(int argc,char *argv[])
             pi_slew_r=::atof(s_pi_r.c_str())/1000;
             pi_slew_f=::atof(s_pi_f.c_str())/1000;
             int tempnode;
-            // ifstream parityfile(argv[29]);
-            // while(parityfile.good())
-            // {
-            //     getline(parityfile,line);
-            //     stringstream ss(line);
-            //     ss >> gate_type;
-            //     while(ss>>gate_parameter)
-            //         paritymap[gate_type]=gate_parameter;
-            // }
-
-            // cout<<"cap done"<<endl;
-            // ifstream capfile(argv[12]);
-            // while(capfile.good())
-            // {
-            //     getline(capfile,line);
-            //     stringstream ss(line);
-            //     ss>>tempword;
-            //     cout<<"tempword :"<<tempword<<endl;
-            //     while(ss>>tempnum){
-            //         capacitancemap[tempword]=tempnum;
-            //        // cout<<" com on --"<<capacitancemap[tempword]<<endl;
-            //     }
-
-            // }
 
         //declaring array of POs, for the purpose of level ordering
         vector<int> povector;
@@ -3546,31 +3438,20 @@ int main(int argc,char *argv[])
         //vector iterator, to iterate over any integer vector
         vector<int>::iterator intit1;
 
-        //cout<<"vertex_count is"<<vertex_count<<endl;
             int picount=0,pocount=0;        
-          //for(int i=0;i<num;i++)
-          //    cout<<i<<"\t"<<g[i].delay[0]<<"\t"<<g[i].delay[1]<<endl;
           
           /**********************This loop calculates picount, pocount **************/
             for(int i=0;i<num;i++)
-          {
-            if(g[i].type=="PO")
             {
-          //cout<<"FOR PO "<<i<<" :fanins are"<<"\t";
-                povector.push_back(i);
-          //      for(intit1=g[i].fanins.begin();intit1<g[i].fanins.end();intit1++)
-          //        {
-          //            cout<<*intit1<<"\t";
-          //            
-          //        }
-          //        cout<<"fanout size "<<g[i].fanouts.size();
-          //        cout<<"\n";
-                pocount++;
-            }
-            else if(g[i].type=="PI")
-                picount++;
+                if(g[i].type=="PO")
+                {
+                    povector.push_back(i);
+                    pocount++;
+                }
+                 else if(g[i].type=="PI")
+                    picount++;
 
-        }
+            }
 
 
         /***************************************************************************/
@@ -3603,7 +3484,7 @@ int main(int argc,char *argv[])
 
         }
 
-        cout<<"Max Level "<< maxlevel<<endl;
+//        cout<<"Max Level "<< maxlevel<<endl;
         /**********************************************************************/
 
         for(int lev=0;lev<maxlevel;lev++){
@@ -3640,92 +3521,19 @@ int main(int argc,char *argv[])
         // Adding code for finding the nodes in level l-3 to l+3 where l is the current level of 
         // the present node
         //////////////////////////////////////////////////////////////////////////////////////////
-         //vector<int> list_of_nodes_on_path{2073,22203,132952,75469,57714,14926,103161,121002,66894,66893,66892,163589};
-         //vector<int> list_of_nodes_on_path{129188, 87016, 79105, 124092, 146547, 146895, 118008, 92196, 92195};
-        //vector<int> list_of_nodes_on_path{2768,106411,2466,111968,131550,131549,36040,50993,41372,12907,27155,164658};
-        //vector<int> list_of_nodes_on_path{2466,111968,131550,131549,36040,50993,41372,12907,27155,164658};
-        //vector<int> list_of_nodes_on_path{111968,131550,131549,36040,50993,41372,12907,27155};
-        //vector<int> list_of_nodes_on_path{2016,82157,89248,130765,136431,56060,110676,22640,22639,14574,100248,164659};
-        //vector<int> list_of_nodes_on_path{3199,17719,98065,56265,37918,37917,124074,163833};
-        //vector<int> list_of_nodes_on_path{26297,20161,9094,62754,90937,115656,68605,69041,44448,44447};
-        //vector<int> list_of_nodes_on_path{82157, 89248, 130765, 136431, 56060, 110676, 22640, 22639, 14574, 100248};  
-        //vector<int> list_of_nodes_on_path{102743,68924,44210,44212,57587,6946,35977,54279,19781,12939};
-        //vector<int> list_of_nodes_on_path{76556, 9459, 130045, 123715, 28810, 125283, 74497, 39192, 60641, 73391, 39126, 87333, 9738, 97047};
-        //vector<int> list_of_nodes_on_path{43724, 104506, 50310, 65925, 65924, 50348, 64361, 71959, 81633}; 
-        //vector<int> list_of_nodes_on_path{156910,157282};  
-        //vector<int> list_of_nodes_on_path{77966, 61927, 30514, 52508, 34222, 47593, 67417, 67416, 67416, 60686, 60685, 41281};
-        //vector<int> list_of_nodes_on_path{7384, 7383, 2025, 11644, 11645, 7406, 2035, 7413, 11657, 11658, 2439, 8628, 2426, 11660, 11661, 11671};
-        //vector<int> list_of_nodes_on_path{8915, 8916, 5399, 5165, 2644, 5944, 5942, 1949, 2123, 5174, 2473, 2086, 2085, 8784, 8349, 9335, 3375, 7860, 7598, 1886, 8227, 9905};
-        //vector<int> list_of_nodes_on_path{9050, 9052, 3940, 9847, 3929, 3916, 9850, 6238, 9853, 9857, 7001, 3853};   
         vector<int> list_of_nodes_on_path{9786, 4938, 9787, 4455, 7264, 4280, 1538, 1531, 1526, 4081, 2583, 4039, 4038, 9082, 5199, 9250, 7567, 6796, 6805, 2010, 1998, 7569, 3794, 9221, 9188, 796, 8696}; 
-         //  vector<int>::iterator v_itr;
-         //  vector<int>::iterator v_itr_full;
-         // // vector<int>::iterator v_itr_fanout;
-         // // vector<int> fanin_list_upto_3;
-         // // vector<int> fanout_list_upto_3;   
-         //  vector<int> all_nodes;
-
-         //  for(v_itr=list_of_nodes_on_path.begin();v_itr!=list_of_nodes_on_path.end();++v_itr){
-         //        all_nodes=all_nodes_at_level_plus_minus_n(*v_itr,g);
-         //        for(v_itr_full=all_nodes.begin();v_itr_full!=all_nodes.end();++v_itr_full){
-         //            cout<<" list has ----"<<endl;
-         //            cout<<*v_itr_full<<endl;
-         //        }    
-
-
-
-         //  }
-
-         // for(v_itr=list_of_nodes_on_path.begin();v_itr!=list_of_nodes_on_path.end();++v_itr){
-         //    cout<<"Finding predecessors for the node -- "<<*v_itr<<endl;
-         //    find_predecessors(g,*v_itr,fanin_list_upto_3,g[*v_itr].level,0);
-
-         //    for(v_itr_fanin=fanin_list_upto_3.begin();v_itr_fanin!=fanin_list_upto_3.end();++v_itr_fanin){
-         //        cout<<"Fan in list has ----"<<endl;
-         //        cout<<*v_itr_fanin<<endl;
-         //    }
-
-         //    fanin_list_upto_3={};
-
-         // }
-
-         // //Here starts the code for finding the fanout
-
-         // for(v_itr=list_of_nodes_on_path.begin();v_itr!=list_of_nodes_on_path.end();++v_itr){
-         //    cout<<"Finding successors for the node -- "<<*v_itr<<endl;
-         //    find_successors(g,*v_itr,fanout_list_upto_3,g[*v_itr].level,0);
-
-         //    for(v_itr_fanout=fanout_list_upto_3.begin();v_itr_fanout!=fanout_list_upto_3.end();++v_itr_fanout){
-         //        cout<<"Fan out list has ----"<<endl;
-         //        cout<<*v_itr_fanout<<endl;
-         //    }
-
-         //    fanout_list_upto_3={};
-
-         // }
         
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         /***since input netlist is LVt, we assign LVt leakage and delay values***/
         leakage_assignment(lvtleakagemap,maxlevel,vertex_count,g,1);
-        // for(int i=0;i<vertex_count-1;i++)
-        // {
-        //     g[i].delay=average(risedelaymap[i][0],falldelaymap[i][0]);
-        //     g[i].numreplacements=0;
-        //     g[i].critical=0;
-        // }
 
         for(int i=0;i<vertex_count-1;i++)
         {   
             string searchby="";
             searchby=lvt_gate_fp_map[g[i].type];
-            // if(paritymap[searchby]==0)
-                 //g[i].delay=max(risedelaymap[i][0],falldelaymap[i][0]);
-            // else if(paritymap[searchby]==1)
-            //     g[i].delay=max(risedelaymap[i][0],falldelaymap[i][0]);
 
             g[i].delay=average(risedelaymap[i][0],falldelaymap[i][0]);
-            //g[i].delay=average(risedelaymap[i][0],falldelaymap[i][0]);
             g[i].numreplacements=0;
             g[i].critical=0;
         }
@@ -3733,12 +3541,10 @@ int main(int argc,char *argv[])
         /////////////////////////////////Calculating just the present cells capacitance//////////////////////
         for(int i=0;i<=num ; i++){
                 string searchby="";
-                //if(g[i].type != "PI" && g[i].type != "PO" ){ 
-                    cout<<"cellCapacitance - xx"<<endl;
-                    searchby=lvt_gate_fp_map[g[i].type];
-                    g[i].cellCapacitance=capacitancemap[searchby];
-                    cout<<"g[i].cellCapacitance"<<g[i].cellCapacitance<<endl;
-               // }
+                //cout<<"cellCapacitance - xx"<<endl;
+                searchby=lvt_gate_fp_map[g[i].type];
+                g[i].cellCapacitance=capacitancemap[searchby];
+                //cout<<"g[i].cellCapacitance"<<g[i].cellCapacitance<<endl;
         }
 
 
@@ -3765,38 +3571,11 @@ int main(int argc,char *argv[])
                 count=count+1;
             }
 
-            //g[i].capacitance = loadCapacitance + g[i].cellCapacitance;
-
-            // int number_of_fanouts=successor_map.size();
-            // double initial_net_capacitance= 0.004;
-            // double initial_net_capacitance_less_fanout= 0.004;
-            // double decline_rate=0.000435;
-            // int rf=  number_of_fanouts - 10;
-            // if(loadCapacitance == 0){
-            //     if(number_of_fanouts == 1)
-            //         g[i].capacitance= 0.004;
-
-            //     else if(number_of_fanouts>1 && number_of_fanouts <=10)
-            //         g[i].capacitance= initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.001;
-                
-            //     else        
-            //         g[i].capacitance=initial_net_capacitance+(rf-1)*0.0001+9*0.001;
-
-            // }else{ 
-                
-            //     if(number_of_fanouts == 1)
-            //         g[i].capacitance= 0.004+loadCapacitance;
-            //     else if(number_of_fanouts >1 && number_of_fanouts <=10)
-            //          g[i].capacitance=loadCapacitance+initial_net_capacitance_less_fanout+(number_of_fanouts - 1)*0.001;
-            //     else   
-            //         g[i].capacitance=loadCapacitance+initial_net_capacitance+(rf-1)*0.0001+9*0.001;
-                
-            // }
+            
 
             int number_of_fanouts=successor_map.size();
             double initial_net_capacitance= 0.0027;
             double initial_net_capacitance_less_fanout= 0.0027;
-            double decline_rate=0.000435;
             int rf=  number_of_fanouts - 10;
             if(loadCapacitance == 0){
                 if(number_of_fanouts == 1)
@@ -3823,31 +3602,12 @@ int main(int argc,char *argv[])
                 
             }
 
-            cout<<"XXOO : LVT "<<endl;
-            // if(i==26149 || i==2789|| i==8616|| i==8602|| i==132791|| i==97948|| i==97947|| i==97945|| i==97944|| i==9663 || i==9662 || i==163436 ){
-            //if(i==1222 || i==8470|| i==34941|| i==90979|| i==114959|| i==97723|| i==28195|| i==89227|| i==12963|| i==12964 || i==97720 || i==163311 ){
-           // if(j==111968|| j==131550|| j==131549|| j==36040|| j==50993|| j==41372|| j==12907|| j==27155){
-            //   cout<<"XXOO : For i = "<<i<<" Capacitance :"<<g[i].capacitance<<" Initial Net Capacitance : "<<initial_net_capacitance<<" (number_of_fanouts)*decline_rate) :"<< (number_of_fanouts)*decline_rate<<endl;
-             //  cout<<"number_of_fanouts :"<<number_of_fanouts<<"Decline rate :"<<decline_rate; 
-           // }
-
-            
             
         }
-
-
-
-
-
-
-
-
-
 
         //////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        //cout<<"max level is "<<maxlevel;      
 
         //temporary vector used to store nodes sorted based on average slack
         vector<int> tempvect;
@@ -3855,23 +3615,8 @@ int main(int argc,char *argv[])
 
         vector<int>::iterator intit;
 
-        
-        //g[markednode].numreplacements==0 && (g[markednode].slack>average(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay)
-
-        // for(intit= list_of_nodes_on_path.begin();intit!=list_of_nodes_on_path.end();++intit){
-        // for(int i=0;i<vertex_count;i++){
-        // //int i=*intit;
-        // updating_load_capacitance_for_a_particular_cell(g,i);    
-        // slew_calculation(hvt_rise_transition_name_index_1,hvt_rise_transition_name_index_2,hvt_fall_transition_name_index_1,hvt_fall_transition_name_index_2,hvt_risetransitionmap,hvt_falltransitionmap,0, maxlevel,vertex_count,g,lvt_gate_fp_map,hvt_gate_fp_map,i);    
-        // delay_calculation(hvt_cell_rise_name_index_1,hvt_cell_rise_name_index_2,hvt_cell_fall_name_index_1,hvt_cell_fall_name_index_2,hvt_risemap,hvt_fallmap,0,maxlevel,vertex_count,0,g,lvt_gate_fp_map,hvt_gate_fp_map,i);
-        // delay_calculation(hvt_cell_rise_name_index_1,hvt_cell_rise_name_index_2,hvt_cell_fall_name_index_1,hvt_cell_fall_name_index_2,hvt_risemap,hvt_fallmap,1,maxlevel,vertex_count,1,g,lvt_gate_fp_map,hvt_gate_fp_map,i);
-        // //g[i].hvt_dela
-        
-        // }
-
         /////////////////////////////////////////////////////////////////////////////////////////////
-        // maxlevel=14;
-        //double delay=arrival_time(10,vertex_count,g,1);
+
         cout<<"--------------------------- Calling the first arrival -----------------------------"<<endl;
         double delay=arrival_time(maxlevel,vertex_count,g,1);
         cout<<delay<<"Initial Delay"<<endl;
@@ -3894,30 +3639,8 @@ int main(int argc,char *argv[])
             }
 
 
-            //sort_function_slack(g,list_of_nodes_on_path);
-            // for(int j=0;j<vertex_count-1;j++)
-            // {
 
-            //     cout<<"-- Inside the For ---"<<endl;
-            //     double tempdelay=average(risedelaymap[j][1],falldelaymap[j][1]);
-            //     cout<<" tempdelay : "<<tempdelay<<endl;
-            //     string temp=lvt_gate_fp_map[g[j].type];
-            //     string fm=temp.substr(0,temp.length()-3);
-            //     string searchby=fm+"hvt";    
-
-            //     // string searchby= hvt_gate_fp_map[g[j].type];
-            //     double leakage=hvtleakagemap[searchby];
-            //     // double tempdelay1=average(risedelaymap[j][2],falldelaymap[j][2]);
-            //     // double leakage1=hvtleakagemap[g[j].type];
-            //     double hvt_cost=(leakage-g[j].leakage)/(tempdelay-g[j].delay);
-            //     cout<<" leakage : "<<leakage<<" g[j].leakage :"<<g[j].leakage<<" tempdelay :"<<tempdelay<<" g[j].delay : "<<g[j].delay<<endl;
-            //     // double hvt_cost=(leakage1-g[j].leakage)/(tempdelay1-g[j].delay);
-            //     g[j].cost[0]=hvt_cost;
-            //     cout<<" g[j].cost[0] "<<g[j].cost[0]<<endl;
-            //     // g[j].cost[1]=hvt_cost;
-                        
-            // }
-        cout<<"TOTAL LEAKAGE Before Replacement:"<<totalleakage<<endl;
+//        cout<<"TOTAL LEAKAGE Before Replacement:"<<totalleakage<<endl;
         //////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////// Checking Arrival Time, required Time, rise delay, fall delay , 
         
@@ -3955,20 +3678,6 @@ int main(int argc,char *argv[])
             cout<<"---------------------------------------------------------------------------"<<endl;
         }
 
-          // cout<<"---------------------------------------------------------------------------"<<endl;
-          //   int current_node_on_path=163435;
-          //   cout<<"g["<<current_node_on_path<<"] Arrival Time -- "<<g[current_node_on_path].arrival<<endl;
-          //   //cout<<"g["<<current_node_on_path<<"] required time -- "<<g[current_node_on_path].required_time<<endl;
-          //   cout<<"g["<<current_node_on_path<<"] delay time -- "<<g[current_node_on_path].delay<<endl;
-          //   cout<<"g["<<current_node_on_path<<"] number of replacements -- "<<g[current_node_on_path].numreplacements<<endl;
-          //   cout<<"g["<<current_node_on_path<<"] critical -- "<<g[current_node_on_path].critical<<endl;
-          //   cout<<"g["<<current_node_on_path<<"] slack -- "<<g[current_node_on_path].slack<<endl;
-          //   cout<<"g["<<current_node_on_path<<"] average(risedelaymap[current_node_on_path][1],falldelaymap[current_node_on_path][1]) -- "<<average(risedelaymap[current_node_on_path][1],falldelaymap[current_node_on_path][1])<<endl;
-          //   cout<<"average(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay "<<average(risedelaymap[current_node_on_path][1],falldelaymap[current_node_on_path][1])-g[current_node_on_path].delay;
-          //   cout<<"---------------------------------------------------------------------------"<<endl;
-
-
-
 
         int count=0;
         double tempdelay;
@@ -3980,17 +3689,11 @@ int main(int argc,char *argv[])
 
         // double delay_path = arrival_time_for_selected_path(g,list_of_nodes_on_path);
         cout<<"delay  ++ "<<delay<<endl; 
-        // //cout<<"delay_path = "<<delay_path<<endl;
-        //tempvect= required_time_for_selected_path(delay_path,g,list_of_nodes_on_path);
-        // tempvect= required_time_for_selected_path(delay,g,list_of_nodes_on_path);
-        //tempvect = required_time(delay,maxlevel,vertex_count,g,list_of_nodes_on_path);
         //cout<<"-----------------------------------Starting the actual replacement algorithm---------------------"<<endl;
-        /*********************************************************Till here verified at 1:00 PM, 21/11/2013 *****************************/
+
         do
         {
-//            for(int i=0;i<windowsize;i++)
-//            {
-//              
+
 //              // The tempvect stores the nodes sorted based on averageslack(metric can be changed to either rise slack or fall slack too 
 //              //The markednode stores the ith node from tempvect.
                 markednode=tempvect[0]; 
@@ -4003,7 +3706,7 @@ int main(int argc,char *argv[])
                 double temp_capacitance;
                 double temp_cellCapacitance;
 
-                cout<<"MARKED NODE X :"<<markednode<<endl;
+
                 //the numreplacements field indicates the number of replacements undergone by that particular node. numreplacments 0->lvt 1->svt 2->hvt
                 //The risedelaymap contains the lvt(0),svt(1),hvt(2) delays for each node 
                 //The rise delay and fall delay are stored as an array in each node
@@ -4045,8 +3748,8 @@ int main(int argc,char *argv[])
                 g[markednode].pred_slew_r_f[0]=max_rise_slew;
                 g[markednode].pred_slew_r_f[1]=max_fall_slew;
 
-                cout<<"After calculating pred slew : g[markednode].pred_slew_r_f[0] "<<g[markednode].pred_slew_r_f[0]<<endl;
-                cout<<"After calculating pred slew : g[markednode].pred_slew_r_f[1] "<<g[markednode].pred_slew_r_f[1]<<endl;
+//                cout<<"After calculating pred slew : g[markednode].pred_slew_r_f[0] "<<g[markednode].pred_slew_r_f[0]<<endl;
+//                cout<<"After calculating pred slew : g[markednode].pred_slew_r_f[1] "<<g[markednode].pred_slew_r_f[1]<<endl;
                 temp_capacitance= g[markednode].capacitance;
                 g[markednode].lvt_hvt=2;
                 updating_load_capacitance_for_a_particular_cell(g,markednode);
@@ -4057,7 +3760,7 @@ int main(int argc,char *argv[])
                 delay_calculation(hvt_cell_rise_name_index_1,hvt_cell_rise_name_index_2,hvt_cell_fall_name_index_1,hvt_cell_fall_name_index_2,hvt_risemap,hvt_fallmap,1,maxlevel,vertex_count,1,g,lvt_gate_fp_map,hvt_gate_fp_map,markednode);
                 //g[markednode].delay=average(g[markednode].delay_from_slew[0],g[markednode].delay_from_slew[1]);
                 g[markednode].delay=max(g[markednode].delay_from_slew[0],g[markednode].delay_from_slew[1]);
-                cout<<"NEW HVT DELAY :"<<g[markednode].delay;
+//                cout<<"NEW HVT DELAY :"<<g[markednode].delay;
                 //If the numreplacements=0(lvt) and the averageslack is greater than  svt delay - lvt delay we commit the change
                 //else if numreplacements =1(hvt) and the averageslack is greater than hvt delay-svt delay we commit the change
                 //else the node is marked critical
@@ -4084,8 +3787,6 @@ int main(int argc,char *argv[])
                         pi_slew_r=0.025;
                         pi_slew_f=0.019;
                         vector<int>::iterator it_slew;
-                       //for(it_slew=list_of_nodes_on_path.begin();it_slew!=list_of_nodes_on_path.end();++it_slew){
-                       // int i=*it_slew;
                         temp_slew_old[0]=g[markednode].slew[0];
                         temp_slew_old[1]=g[markednode].slew[1];
                         
@@ -4108,7 +3809,7 @@ int main(int argc,char *argv[])
                         }
 
                         calculated_delay=arrival_time(maxlevel,vertex_count,g,2); 
-                        cout<<"CALCULATED DELAY :"<<calculated_delay<<endl;
+//                        cout<<"CALCULATED DELAY :"<<calculated_delay<<endl;
 
                        
 
@@ -4128,32 +3829,23 @@ int main(int argc,char *argv[])
                         
                     }
                 
-//              }
-//            //cout<<"doing delay"<<endl;
 
             // if replacing a node violates the delay , that particular replacement is undone.
-            cout<<markednode<<": TEMP DELAY : "<<calculated_delay<<" DELAY : "<<delay<<" difference "<<calculated_delay - delay<<endl;        
+            //cout<<markednode<<": TEMP DELAY : "<<calculated_delay<<" DELAY : "<<delay<<" difference "<<calculated_delay - delay<<endl;        
             if(calculated_delay>delay)
             {
-                //cout<<"--------replacing a node violates the delay , that particular replacement is undone---------"<<endl;
-//               
-                //cout<<" removing node - "<<markednode<<" - markednode "<<g[markednode].type<<" - g[markednode].type"<<endl;
                     if(g[markednode].numreplacements==1)
                     {
 
                         string searchby= lvt_gate_fp_map[g[markednode].type]; 
-                        //cout<<"searchby :"<<searchby<<endl;
                         g[markednode].leakage=temp_leakage;
                         g[markednode].delay=temp_delay;
                         g[markednode].critical=1;
                         g[markednode].numreplacements=g[markednode].numreplacements-1;
                         g[markednode].lvt_hvt=1;
-                        //putting the lvt cap value back
-                        //g[markednode].cellCapacitance=capacitancemap[searchby];
                         g[markednode].cellCapacitance=temp_cellCapacitance;
 
                         g[markednode].capacitance=temp_capacitance;
-                        //g[markednode].delay=g[markednode].delay_old;
                         g[markednode].slew[0]=temp_slew[0];
                         g[markednode].slew[1]=temp_slew[1];
                         
@@ -4183,24 +3875,17 @@ int main(int argc,char *argv[])
             {
                 if(g[markednode].critical==1 && g[markednode].numreplacements==1 && g[markednode].lvt_hvt==2){
                 list_of_replaced_nodes.push_back(markednode);
-                //g[markednode].delay=average(g[markednode].delay_from_slew[0],g[markednode].delay_from_slew[1]);
-
-                //}
-
-                // tempvect = required_time_for_selected_path(delay,g,list_of_nodes_on_path);
-                tempvect = required_time(delay-0.0,maxlevel,vertex_count,g,list_of_nodes_on_path);
-                //tempvect = required_time(1.09,maxlevel,vertex_count,g,list_of_nodes_on_path);
+                tempvect = required_time(delay,maxlevel,vertex_count,g,list_of_nodes_on_path);
                 g[markednode].delay=max(g[markednode].delay_from_slew[0],g[markednode].delay_from_slew[1]);
-                cout<<"----------------------- Delay from slew-------------------------------"<<endl;
-                cout<<" g[markednode].delay_from_slew[0] "<<g[markednode].delay_from_slew[0]<<endl;
-                cout<<" g[markednode].delay_from_slew[1] "<<g[markednode].delay_from_slew[1]<<endl;
-                cout<<"----------------------- Delay from slew-------------------------------"<<endl;
+                // cout<<"----------------------- Delay from slew-------------------------------"<<endl;
+                // cout<<" g[markednode].delay_from_slew[0] "<<g[markednode].delay_from_slew[0]<<endl;
+                // cout<<" g[markednode].delay_from_slew[1] "<<g[markednode].delay_from_slew[1]<<endl;
+                // cout<<"----------------------- Delay from slew-------------------------------"<<endl;
                 //g[markednode].delay[1]=g[markednode].delay_from_slew[1];
                         
                 changecount++;
                 }
             }
-        ////cout<<tempvect.size()<<endl;        
         //count variable keeps a track of number of moves made so far
             count++;
 
@@ -4251,26 +3936,11 @@ int main(int argc,char *argv[])
 
             cout<<"g["<<current_node_on_path<<"].pred_slew_r_f[0]"<<g[current_node_on_path].pred_slew_r_f[0]<<endl;
             cout<<"g["<<current_node_on_path<<"].pred_slew_r_f[1]"<<g[current_node_on_path].pred_slew_r_f[1]<<endl;
-            //print_nodes_delays(g[current_node_on_path].fanouts,g);
-            //cout<<"g["<<current_node_on_path<<"] average(risedelaymap[current_node_on_path][1],falldelaymap[current_node_on_path][1]) -- "<<average(risedelaymap[current_node_on_path][1],falldelaymap[current_node_on_path][1])<<endl;
-            //cout<<"average(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay "<<average(risedelaymap[current_node_on_path][1],falldelaymap[current_node_on_path][1])-g[current_node_on_path].delay;
             cout<<"---------------------------------------------------------------------------"<<endl;
         }
 
 
 
-            // //current_node_on_path=164683;
-            // cout<<"---------------------------------------------------------------------------"<<endl;
-            // current_node_on_path=163435;
-            // cout<<"g["<<current_node_on_path<<"] Arrival Time -- "<<g[current_node_on_path].arrival<<endl;
-            // //cout<<"g["<<current_node_on_path<<"] required time -- "<<g[current_node_on_path].required_time<<endl;
-            // cout<<"g["<<current_node_on_path<<"] delay time -- "<<g[current_node_on_path].delay<<endl;
-            // cout<<"g["<<current_node_on_path<<"] number of replacements -- "<<g[current_node_on_path].numreplacements<<endl;
-            // cout<<"g["<<current_node_on_path<<"] critical -- "<<g[current_node_on_path].critical<<endl;
-            // cout<<"g["<<current_node_on_path<<"] slack -- "<<g[current_node_on_path].slack<<endl;
-            // cout<<"g["<<current_node_on_path<<"] average(risedelaymap[current_node_on_path][1],falldelaymap[current_node_on_path][1]) -- "<<average(risedelaymap[current_node_on_path][1],falldelaymap[current_node_on_path][1])<<endl;
-            // cout<<"average(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay "<<average(risedelaymap[current_node_on_path][1],falldelaymap[current_node_on_path][1])-g[current_node_on_path].delay;
-            // cout<<"---------------------------------------------------------------------------"<<endl;
 
     }//closing braces for argument else
 
@@ -4280,8 +3950,6 @@ int main(int argc,char *argv[])
     vector<int>::iterator itr;
     for(itr=list_of_replaced_nodes.begin();itr!=list_of_replaced_nodes.end();++itr)
     {
-            //int temp=slackset[i].first;
-            //myfile<<temp<<" "<<g[temp].cost[0]<<" "<<g[temp].numreplacements<<" "<<g[temp].critical<<"\n";     
             myfile<<*itr<<",";
     } 
     myfile<<"\n";
