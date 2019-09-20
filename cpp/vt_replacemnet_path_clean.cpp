@@ -2361,6 +2361,93 @@ void print_nodes_slew(vector<int> node_list,Graph &g){
     }
 }
 
+void file_reader_node_property(ifstream &inputfile, int num,int property_number, Graph &g){
+
+/* property_number specifies which property is getting populated 
+   1 - type
+   2 - fanout
+   3 - fanin
+
+*/
+    string line;
+    int j,k;
+
+            for(int i=0;i<num;i++) // we assign the gates their types pi po or cell type
+            {
+                if(inputfile.is_open()){
+                    getline(inputfile,line);
+                
+                    if (property_number == 1)//type
+                        g[i].type=line;
+                    if (property_number == 2){// fanourt 
+
+                        vector<int>fanouts;
+                        //getline(fanoutfile,line);
+                        std::istringstream ss(line);
+                    
+                        while(ss>>j){
+                            // cout<<i<<" - "<<j<<endl;
+                            fanouts.push_back(j);
+                        }
+
+                        if(i!=0){
+
+                            g[i-1].fanouts=fanouts;
+
+                        
+                    }
+
+                    if (property_number == 3) {// fanin 
+                        vector<int>fanins;
+                        std::istringstream ss(line);
+                    
+                    while(ss>>j){
+                        
+                        fanins.push_back(j);
+
+                    }
+                    
+
+                        g[i].fanins=fanins;
+
+                       
+                    }
+            
+                }
+            }
+
+        }
+
+}
+
+void leakage_power_reader(ifstream &leakagefile, int type ){
+
+    string line;
+        
+            while(getline(leakagefile,line)){    
+                vector<string> result; 
+                boost::split(result, line, boost::is_any_of(":"));
+                    // std::string s1;
+                string s1 = result[1];
+                int len=s1.length();
+                string s=s1.substr(0,len);
+                    // std::replace( s.begin(), s.end(), '\n', ' ');
+                cout<<s<<endl;
+                   // cout<<"before inserting"<<endl;   
+                if(type == 1 ){
+                    lvt_gate_fp_map.insert(std::pair<string,string>(result[0],s)); 
+                    lvt_gate_fp_map.insert(std::pair<string,string>(s,result[0])); 
+                }else if (type == 2){
+                    hvt_gate_fp_map.insert(pair<string,string>(result[0],s));
+                    hvt_gate_fp_map.insert(pair<string,string>(s,result[0])); 
+
+
+                }
+                    //cout<<"after inserting"<<endl;       
+            }
+
+}
+
 int main(int argc,char *argv[])
 {
     //string variable to read lines from files
@@ -2425,129 +2512,35 @@ int main(int argc,char *argv[])
             
             //line i in argv[2] contains type of node i in the graph (PI, PO or cell type)
             ifstream typefile(argv[2]);
+            file_reader_node_property(typefile,num,1,g);
             
-            //cout<<"reading types"<<endl;
-            for(int i=0;i<num;i++) // we assign the gates their types pi po or cell type
-            {
-                if(typefile.is_open())
-                    getline(typefile,line);
-                g[i].type=line;
-            }
-            int j,k;
             cout<<"identifying fanins/ fanouts"<<endl;
             //now, we identify fanins and fanouts for each node
             
-            //This for loop will identify fanouts for each node
+            // identify fanouts for each node
             cout<< "Fan outs "<<endl;
             ifstream fanoutfile(argv[3]);
-            for(int i=0;i<=num;i++)
-            {
-                
-                if(fanoutfile.is_open())
-                {
-                    vector<int>fanouts;
-                    getline(fanoutfile,line);
-                    std::istringstream ss(line);
-                    
-                    while(ss>>j){
-                        // cout<<i<<" - "<<j<<endl;
-                        fanouts.push_back(j);
-                    }
-
-                    if(i!=0){
-
-                        g[i-1].fanouts=fanouts;
-
-                        cout<<" Printing fan outs "<<endl;
-                        cout<<g[i-1].type<<" --- "<<i-1<<endl;
-                        vector<int>::iterator v;
-                         for(v=fanouts.begin();v!=fanouts.end();++v){
-                            cout<<*v<<"\t";
-                        }
-                        cout<<endl;
-                    }
-
-                    // cout<<i<<" - "<<g[i].fanouts<<endl;
-                }
+            file_reader_node_property(fanoutfile,num,2,g);
             
-
-            }
             
-            //This for loop will identify fanins for each node
-            cout<< " Fan ins "<<endl;
+            // identify fanins for each node
+            //cout<< " Fan ins "<<endl;
             ifstream faninfile(argv[4]);
-            for(int i=0;i<=num;i++)
-            {
-                if(faninfile.is_open())
-                {
-                    vector<int>fanins;
-                    getline(faninfile,line);
-                    //edge contains two fields - second:boolean variable, which is true if edge exists from j->i
-                    //                                                    which is false otherwise
-                    std::istringstream ss(line);
-                    
-                    while(ss>>j){
-                        
-                        fanins.push_back(j);
-
-                    }
-                    
-
-                        g[i].fanins=fanins;
-
-                        cout<<" Printing fan ins "<<endl;
-                        cout<<g[i].type<<" --- "<<i<<endl;
-                        vector<int>::iterator v;
-                         for(v=fanins.begin();v!=fanins.end();++v){
-                            cout<<*v<<"\t";
-                        }
-                        cout<<endl;
-                    
-                }
-            }
-            cout<<"fanouts and Fanins done"<<endl;
+            file_reader_node_property(faninfile,num,3,g);
+            
+            // cout<<"fanouts and Fanins done"<<endl;
 
             //new gate mapping code inserted by PBR on 22nd June 2019
             //The following code maps lvt token to lvt gate type 
             ifstream lvtmapfile(argv[5]);
-            // while(lvtmapfile.good())
-            //     {
-
-                    while(getline(lvtmapfile,line)){    
-                    vector<string> result; 
-                    boost::split(result, line, boost::is_any_of(":"));
-                    // std::string s1;
-                    string s1 = result[1];
-                    int len=s1.length();
-                    string s=s1.substr(0,len);
-                    // std::replace( s.begin(), s.end(), '\n', ' ');
-                    cout<<s<<endl;
-                   // cout<<"before inserting"<<endl;   
-                    lvt_gate_fp_map.insert(std::pair<string,string>(result[0],s)); 
-                    lvt_gate_fp_map.insert(std::pair<string,string>(s,result[0])); 
-                    //cout<<"after inserting"<<endl;       
-                }
+            leakage_power_reader(lvtmapfile, 1);
 
             //cout<<"reading HVT map file "<<endl;
             //The following code maps hvt token to hvt gate type 
             ifstream hvtmapfile(argv[6]);
-                    
+            leakage_power_reader(hvtmapfile, 2);                    
 
-                    while(getline(hvtmapfile,line)){    
-                   // cout<<"In hvt map file"<<endl;
-                    vector<string> result; 
-                    boost::split(result, line, boost::is_any_of(":"));
-                    // std::string s1;
-                    string s1 = result[1];
-                    int len=s1.length();
-                    string s=s1.substr(0,len);
-                    //std::replace( s.begin(), s.end(), '\n', '');
-                    cout<<s<<endl;    
-                    hvt_gate_fp_map.insert(pair<string,string>(result[0],s));
-                    hvt_gate_fp_map.insert(pair<string,string>(s,result[0])); 
-
-                }    
-
+            
             ////////////////////////////////////////////////////////////////////////////
 
 
@@ -3646,36 +3639,36 @@ int main(int argc,char *argv[])
         
         vector<int>::iterator path_itr;
         for(path_itr=list_of_nodes_on_path.begin();path_itr!=list_of_nodes_on_path.end();++path_itr){
-            cout<<"---------------------------------------------------------------------------"<<endl;
+            //cout<<"---------------------------------------------------------------------------"<<endl;
             int current_node_on_path=*path_itr;
-            cout<<"Node :"<<current_node_on_path<<" size of fanins"<<g[current_node_on_path].fanins.size()<<endl;
-            cout<<"predecessors :"<<endl;
+            //cout<<"Node :"<<current_node_on_path<<" size of fanins"<<g[current_node_on_path].fanins.size()<<endl;
+            //cout<<"predecessors :"<<endl;
             print_nodes(g[current_node_on_path].fanins,g);
-            cout<<"Node :"<<current_node_on_path<<" size of fanouts"<<g[current_node_on_path].fanouts.size()<<endl;
-            cout<<"successors :"<<endl;
+            //cout<<"Node :"<<current_node_on_path<<" size of fanouts"<<g[current_node_on_path].fanouts.size()<<endl;
+            //cout<<"successors :"<<endl;
             print_nodes(g[current_node_on_path].fanouts,g);
-            cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].capacitance :"<<g[current_node_on_path].capacitance<<endl;
-            cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].level :"<<g[current_node_on_path].level<<endl;
-            cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].type :"<<g[current_node_on_path].type<<endl;
-            cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].leakage :"<<g[current_node_on_path].leakage<<endl;
-            cout<<"g["<<current_node_on_path<<"] Arrival Time -- "<<g[current_node_on_path].arrival<<endl;
-            //cout<<"g["<<current_node_on_path<<"] required time -- "<<g[current_node_on_path].required_time<<endl;
-            cout<<"g["<<current_node_on_path<<"] delay time -- "<<g[current_node_on_path].delay<<endl;
-            cout<<"Node : "<<current_node_on_path<<" - risedelaymap["<<current_node_on_path<<"][0] "<<risedelaymap[current_node_on_path][0]<<endl;
-            cout<<"Node : "<<current_node_on_path<<" - falldelaymap["<<current_node_on_path<<"][0] "<<falldelaymap[current_node_on_path][0]<<endl;
+            // cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].capacitance :"<<g[current_node_on_path].capacitance<<endl;
+            // cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].level :"<<g[current_node_on_path].level<<endl;
+            // cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].type :"<<g[current_node_on_path].type<<endl;
+            // cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].leakage :"<<g[current_node_on_path].leakage<<endl;
+            // cout<<"g["<<current_node_on_path<<"] Arrival Time -- "<<g[current_node_on_path].arrival<<endl;
+            // //cout<<"g["<<current_node_on_path<<"] required time -- "<<g[current_node_on_path].required_time<<endl;
+            // cout<<"g["<<current_node_on_path<<"] delay time -- "<<g[current_node_on_path].delay<<endl;
+            // cout<<"Node : "<<current_node_on_path<<" - risedelaymap["<<current_node_on_path<<"][0] "<<risedelaymap[current_node_on_path][0]<<endl;
+            // cout<<"Node : "<<current_node_on_path<<" - falldelaymap["<<current_node_on_path<<"][0] "<<falldelaymap[current_node_on_path][0]<<endl;
 
-            cout<<"g["<<current_node_on_path<<"] number of replacements -- "<<g[current_node_on_path].numreplacements<<endl;
-            cout<<"g["<<current_node_on_path<<"] critical -- "<<g[current_node_on_path].critical<<endl;
-            cout<<"g["<<current_node_on_path<<"] slack -- "<<g[current_node_on_path].slack<<endl;
-            //cout<<"g["<<current_node_on_path<<"] average(risedelaymap[current_node_on_path][1],falldelaymap[current_node_on_path][1]) -- "<<average(risedelaymap[current_node_on_path][1],falldelaymap[current_node_on_path][1])<<endl;
-            //cout<<"average(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay "<<average(risedelaymap[current_node_on_path][1],falldelaymap[current_node_on_path][1])-g[current_node_on_path].delay<<endl;
-            cout<<"g["<<current_node_on_path<<"].slew[0]"<<g[current_node_on_path].slew[0]<<endl;
-            cout<<"g["<<current_node_on_path<<"].slew[1]"<<g[current_node_on_path].slew[1]<<endl;
+            // cout<<"g["<<current_node_on_path<<"] number of replacements -- "<<g[current_node_on_path].numreplacements<<endl;
+            // cout<<"g["<<current_node_on_path<<"] critical -- "<<g[current_node_on_path].critical<<endl;
+            // cout<<"g["<<current_node_on_path<<"] slack -- "<<g[current_node_on_path].slack<<endl;
+            // //cout<<"g["<<current_node_on_path<<"] average(risedelaymap[current_node_on_path][1],falldelaymap[current_node_on_path][1]) -- "<<average(risedelaymap[current_node_on_path][1],falldelaymap[current_node_on_path][1])<<endl;
+            // //cout<<"average(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay "<<average(risedelaymap[current_node_on_path][1],falldelaymap[current_node_on_path][1])-g[current_node_on_path].delay<<endl;
+            // cout<<"g["<<current_node_on_path<<"].slew[0]"<<g[current_node_on_path].slew[0]<<endl;
+            // cout<<"g["<<current_node_on_path<<"].slew[1]"<<g[current_node_on_path].slew[1]<<endl;
 
-            cout<<"g["<<current_node_on_path<<"].pred_slew_r_f[0]"<<g[current_node_on_path].pred_slew_r_f[0]<<endl;
-            cout<<"g["<<current_node_on_path<<"].pred_slew_r_f[1]"<<g[current_node_on_path].pred_slew_r_f[1]<<endl;
+            // cout<<"g["<<current_node_on_path<<"].pred_slew_r_f[0]"<<g[current_node_on_path].pred_slew_r_f[0]<<endl;
+            // cout<<"g["<<current_node_on_path<<"].pred_slew_r_f[1]"<<g[current_node_on_path].pred_slew_r_f[1]<<endl;
 
-            cout<<"---------------------------------------------------------------------------"<<endl;
+            // cout<<"---------------------------------------------------------------------------"<<endl;
         }
 
 
@@ -3748,33 +3741,13 @@ int main(int argc,char *argv[])
                 g[markednode].pred_slew_r_f[0]=max_rise_slew;
                 g[markednode].pred_slew_r_f[1]=max_fall_slew;
 
-//                cout<<"After calculating pred slew : g[markednode].pred_slew_r_f[0] "<<g[markednode].pred_slew_r_f[0]<<endl;
-//                cout<<"After calculating pred slew : g[markednode].pred_slew_r_f[1] "<<g[markednode].pred_slew_r_f[1]<<endl;
                 temp_capacitance= g[markednode].capacitance;
                 g[markednode].lvt_hvt=2;
                 updating_load_capacitance_for_a_particular_cell(g,markednode);
 
                 delay_calculation(hvt_cell_rise_name_index_1,hvt_cell_rise_name_index_2,hvt_cell_fall_name_index_1,hvt_cell_fall_name_index_2,hvt_risemap,hvt_fallmap,0,maxlevel,vertex_count,0,g,lvt_gate_fp_map,hvt_gate_fp_map,markednode);
-                        //cout<<"hvt rise delay\n";
-                        //cout<<" Before  fall delay calculation  - - HVT "<<endl;
                 delay_calculation(hvt_cell_rise_name_index_1,hvt_cell_rise_name_index_2,hvt_cell_fall_name_index_1,hvt_cell_fall_name_index_2,hvt_risemap,hvt_fallmap,1,maxlevel,vertex_count,1,g,lvt_gate_fp_map,hvt_gate_fp_map,markednode);
-                //g[markednode].delay=average(g[markednode].delay_from_slew[0],g[markednode].delay_from_slew[1]);
                 g[markednode].delay=max(g[markednode].delay_from_slew[0],g[markednode].delay_from_slew[1]);
-//                cout<<"NEW HVT DELAY :"<<g[markednode].delay;
-                //If the numreplacements=0(lvt) and the averageslack is greater than  svt delay - lvt delay we commit the change
-                //else if numreplacements =1(hvt) and the averageslack is greater than hvt delay-svt delay we commit the change
-                //else the node is marked critical
-                //we do sta everytime a change is committed.
-                // cout<<"Current Marked Node is --- "<<markednode<<endl;
-                // cout<<"This is before testing the if in the do---------------------"<<endl;
-                // cout<<"g[markednode].numreplacements "<<g[markednode].numreplacements<<"g[markednode].slack "<<g[markednode].slack<<endl;
-                // cout<<"risedelaymap[markednode][1] "<<risedelaymap[markednode][1]<<"falldelaymap[markednode][1] "<<falldelaymap[markednode][1]<<"g[markednode].delay "<<g[markednode].delay<<endl;
-                // cout<<"average(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay) "<<average(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay<<endl;                
-                //cout<<"Temp Arrival Time "<<arrival_time(maxlevel,vertex_count,g,2);
-                    //if(g[markednode].numreplacements==0 && (g[markednode].slack>average(g[markednode].delay_from_slew[0],g[markednode].delay_from_slew[1])-g[markednode].delay))
-                    //if(g[markednode].numreplacements==0 && (g[markednode].slack>average(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay))
-                    //if(g[markednode].numreplacements==0 && (g[markednode].slack>max(risedelaymap[markednode][1],falldelaymap[markednode][1])-g[markednode].delay))
-                    //if(g[markednode].numreplacements==0 && (g[markednode].slack>average(g[markednode].delay_from_slew[0],g[markednode].delay_from_slew[1])-temp_delay))
                     if(g[markednode].numreplacements==0 && (g[markednode].slack>max(g[markednode].delay_from_slew[0],g[markednode].delay_from_slew[1])-temp_delay))
                     {
 
@@ -3782,8 +3755,6 @@ int main(int argc,char *argv[])
                         g[markednode].leakage=hvtleakagemap[searchby];
                         g[markednode].numreplacements=1;
                         g[markednode].critical=1;
-                        //g[markednode].lvt_hvt=2;
-
                         pi_slew_r=0.025;
                         pi_slew_f=0.019;
                         vector<int>::iterator it_slew;
@@ -3877,12 +3848,6 @@ int main(int argc,char *argv[])
                 list_of_replaced_nodes.push_back(markednode);
                 tempvect = required_time(delay,maxlevel,vertex_count,g,list_of_nodes_on_path);
                 g[markednode].delay=max(g[markednode].delay_from_slew[0],g[markednode].delay_from_slew[1]);
-                // cout<<"----------------------- Delay from slew-------------------------------"<<endl;
-                // cout<<" g[markednode].delay_from_slew[0] "<<g[markednode].delay_from_slew[0]<<endl;
-                // cout<<" g[markednode].delay_from_slew[1] "<<g[markednode].delay_from_slew[1]<<endl;
-                // cout<<"----------------------- Delay from slew-------------------------------"<<endl;
-                //g[markednode].delay[1]=g[markednode].delay_from_slew[1];
-                        
                 changecount++;
                 }
             }
@@ -3911,32 +3876,32 @@ int main(int argc,char *argv[])
         cout<<" delay before replacement:"<<delay<<" "<<" delay after replacement:"<<checkdelay<<endl;
 
         for(path_itr=list_of_nodes_on_path.begin();path_itr!=list_of_nodes_on_path.end();++path_itr){
-            cout<<"---------------------------------------------------------------------------"<<endl;
+            //cout<<"---------------------------------------------------------------------------"<<endl;
             int current_node_on_path=*path_itr;
-            cout<<"Node :"<<current_node_on_path<<" size of fanins"<<g[current_node_on_path].fanins.size()<<endl;
-            cout<<"predecessors :"<<endl;
+            // cout<<"Node :"<<current_node_on_path<<" size of fanins"<<g[current_node_on_path].fanins.size()<<endl;
+            // cout<<"predecessors :"<<endl;
             print_nodes(g[current_node_on_path].fanins,g);
-            cout<<"Node :"<<current_node_on_path<<" size of fanouts"<<g[current_node_on_path].fanouts.size()<<endl;
-            cout<<"successors :"<<endl;
+            // cout<<"Node :"<<current_node_on_path<<" size of fanouts"<<g[current_node_on_path].fanouts.size()<<endl;
+            // cout<<"successors :"<<endl;
             print_nodes(g[current_node_on_path].fanouts,g);
-            cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].level :"<<g[current_node_on_path].level<<endl;
-            cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].type :"<<g[current_node_on_path].type<<endl;
-            cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].leakage :"<<g[current_node_on_path].leakage<<endl;
-            cout<<"g["<<current_node_on_path<<"] Arrival Time -- "<<g[current_node_on_path].arrival<<endl;
-            //cout<<"g["<<current_node_on_path<<"] required time -- "<<g[current_node_on_path].required_time<<endl;
-            cout<<"g["<<current_node_on_path<<"] delay time -- "<<g[current_node_on_path].delay<<endl;
-            cout<<"Node : "<<current_node_on_path<<" - risedelaymap["<<current_node_on_path<<"][1] "<<risedelaymap[current_node_on_path][1]<<endl;
-            cout<<"Node : "<<current_node_on_path<<" - falldelaymap["<<current_node_on_path<<"][1] "<<falldelaymap[current_node_on_path][1]<<endl;
-            cout<<"g["<<current_node_on_path<<"] number of replacements -- "<<g[current_node_on_path].numreplacements<<endl;
-            cout<<"g["<<current_node_on_path<<"] critical -- "<<g[current_node_on_path].critical<<endl;
-            cout<<"g["<<current_node_on_path<<"] slack -- "<<g[current_node_on_path].slack<<endl;
-            cout<<"g["<<current_node_on_path<<"] lvt or hvt -- "<<g[current_node_on_path].lvt_hvt<<endl;
-            cout<<"g["<<current_node_on_path<<"].slew[0]"<<g[current_node_on_path].slew[0]<<endl;
-            cout<<"g["<<current_node_on_path<<"].slew[1]"<<g[current_node_on_path].slew[1]<<endl;
+            // cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].level :"<<g[current_node_on_path].level<<endl;
+            // cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].type :"<<g[current_node_on_path].type<<endl;
+            // cout<<"Node :"<<current_node_on_path<<"g["<<current_node_on_path<<"].leakage :"<<g[current_node_on_path].leakage<<endl;
+            // cout<<"g["<<current_node_on_path<<"] Arrival Time -- "<<g[current_node_on_path].arrival<<endl;
+            // //cout<<"g["<<current_node_on_path<<"] required time -- "<<g[current_node_on_path].required_time<<endl;
+            // cout<<"g["<<current_node_on_path<<"] delay time -- "<<g[current_node_on_path].delay<<endl;
+            // cout<<"Node : "<<current_node_on_path<<" - risedelaymap["<<current_node_on_path<<"][1] "<<risedelaymap[current_node_on_path][1]<<endl;
+            // cout<<"Node : "<<current_node_on_path<<" - falldelaymap["<<current_node_on_path<<"][1] "<<falldelaymap[current_node_on_path][1]<<endl;
+            // cout<<"g["<<current_node_on_path<<"] number of replacements -- "<<g[current_node_on_path].numreplacements<<endl;
+            // cout<<"g["<<current_node_on_path<<"] critical -- "<<g[current_node_on_path].critical<<endl;
+            // cout<<"g["<<current_node_on_path<<"] slack -- "<<g[current_node_on_path].slack<<endl;
+            // cout<<"g["<<current_node_on_path<<"] lvt or hvt -- "<<g[current_node_on_path].lvt_hvt<<endl;
+            // cout<<"g["<<current_node_on_path<<"].slew[0]"<<g[current_node_on_path].slew[0]<<endl;
+            // cout<<"g["<<current_node_on_path<<"].slew[1]"<<g[current_node_on_path].slew[1]<<endl;
 
-            cout<<"g["<<current_node_on_path<<"].pred_slew_r_f[0]"<<g[current_node_on_path].pred_slew_r_f[0]<<endl;
-            cout<<"g["<<current_node_on_path<<"].pred_slew_r_f[1]"<<g[current_node_on_path].pred_slew_r_f[1]<<endl;
-            cout<<"---------------------------------------------------------------------------"<<endl;
+            // cout<<"g["<<current_node_on_path<<"].pred_slew_r_f[0]"<<g[current_node_on_path].pred_slew_r_f[0]<<endl;
+            // cout<<"g["<<current_node_on_path<<"].pred_slew_r_f[1]"<<g[current_node_on_path].pred_slew_r_f[1]<<endl;
+            // cout<<"---------------------------------------------------------------------------"<<endl;
         }
 
 
